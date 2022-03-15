@@ -1,5 +1,15 @@
 <?php include "includes/components/header.php" ?>
 
+<!-- ** IF THERE IS NO SESSION ** -->
+<?php
+
+// if (!isset($_SESSION["role"])) {
+//     include "401.php";
+//     return;
+// }
+
+?>
+
 <!-- Top Bar -->
 <?php include "includes/components/navbar.php" ?>
 <div id="layoutSidenav">
