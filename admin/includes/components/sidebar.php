@@ -14,9 +14,13 @@
                 // * Conditional rendering
                 switch ($role) {
 
+                    case "counsilor": {
+                            include "sidebars/counsilor-sidebar.php";
+                            break;
+                        }
+
                     case "user": {
                             include "sidebars/user-sidebar.php";
-                            break;
                         }
 
                         // * default if ADMIN
