@@ -3,10 +3,10 @@
 <!-- ** IF THERE IS NO SESSION ** -->
 <?php
 
-// if (!isset($_SESSION["role"])) {
-//     include "401.php";
-//     return;
-// }
+if (!isset($_SESSION["role"])) {
+    include "401.php";
+    return;
+}
 
 ?>
 

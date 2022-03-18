@@ -7,7 +7,7 @@
             <div class="col-12 col-md-4 col-lg-3   h-50 ">
                 <div class="card shadow">
                     <div class="card-body mx-auto">
-                        <h4 class="card-title mt-3 text-center">Create Account</h4>
+                        <h4 class="card-title mt-3 text-center">Log In</h4>
                         <p class="text-center">Get started with your free account</p>
                         <p>
                             <a href="" class="btn btn-block btn-info">
@@ -18,39 +18,28 @@
                         <p class="text-muted font-weight-bold ">
                             <span>OR</span>
                         </p>
-                        <form>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                </div>
-                                <input name="" class="form-control" placeholder="Full name" type="text">
-                            </div>
+                        <form action="login.php" method="POST">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                                 </div>
-                                <input name="" class="form-control" placeholder="Email address" type="email">
+                                <input name="username" class="form-control" placeholder="Enter username" type="text">
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input class="form-control" placeholder="Create password" type="password">
-                            </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                </div>
-                                <input class="form-control" placeholder="Repeat password" type="password">
+                                <input name="password" class="form-control" placeholder="Enter password" type="password">
                             </div>
                             <br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+                                <button name="login" type="submit" class="btn btn-primary btn-block"> <strong>Log In</strong> </button>
                             </div>
                             <br>
-                            <p class="text-center">Have an account?
-                                <a href="">Log In</a>
+                            <p class="text-center">Don't have an account?
+                                <a href="signup.php">Sign Up</a>
                             </p>
+                            <?php loginUser() ?>
                         </form>
                     </div>
                 </div>

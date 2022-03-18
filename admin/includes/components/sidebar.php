@@ -13,19 +13,18 @@
 
                 // * Conditional rendering
                 switch ($role) {
+                    case 1: {
+                            include "sidebars/admin-sidebar.php";
+                            break;
+                        }
 
-                    case "counsilor": {
+                    case 2: {
                             include "sidebars/counsilor-sidebar.php";
                             break;
                         }
 
-                    case "user": {
+                    case 3: {
                             include "sidebars/user-sidebar.php";
-                        }
-
-                        // * default if ADMIN
-                    default: {
-                            include "sidebars/admin-sidebar.php";
                             break;
                         }
                 }
@@ -34,8 +33,8 @@
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            Start Bootstrap
+            <div class="small">Welcome <?php echo $_SESSION["first_name"] ?></div>
+
         </div>
     </nav>
 </div>

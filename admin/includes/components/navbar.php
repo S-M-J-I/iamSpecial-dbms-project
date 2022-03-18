@@ -19,7 +19,7 @@
                 <li>
                     <hr class="dropdown-divider" />
                 </li>
-                <li><a class="dropdown-item" href="#!"><i class="fa fa-power-off"></i> Logout</a></li>
+                <li><a class="dropdown-item" href="logout.php"><i class="fa fa-power-off"></i> Logout</a></li>
             </ul>
         </li>
     </ul>
