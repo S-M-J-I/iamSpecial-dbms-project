@@ -71,7 +71,7 @@ function signUp()
 
         // * if passwords donot match, error
         if ($password != $repeatPassword) {
-            echo "<h4 style='color: red;'>Passwords do not match</h4>";
+            echo "<p style='color: red;'>Invalid username or password</p>";
             return;
         }
 
@@ -87,6 +87,17 @@ function signUp()
         // * if query is successfully executed
         if ($res) {
             // * redirect to the log in page
+
+            $id = getLastEnteredID();
+            $temp = explode(".", $_FILES["avatar"]["name"]);
+            $avatar = $id . '.' . end($temp);
+            $temp_avatar = $_FILES['avatar']['tmp_name'];
+
+            move_uploaded_file($temp_avatar, "./images/avatars/$avatar");
+            $query = $connection->prepare("UPDATE users SET avatar=? WHERE id=?");
+            $query->bind_param("si", $avatar, $id);
+            $res = $query->execute() or die("Query Failed" . mysqli_error($connection));
+
             header("Location: login.php");
         }
     }
@@ -115,6 +126,7 @@ function loginUser()
                     $_SESSION['first_name'] = $row['first_name'];
                     $_SESSION['last_name'] = $row['last_name'];
                     $_SESSION['role'] = $row['role'];
+                    $_SESSION['avatar'] = $row['avatar'];
 
                     if (isset($_SESSION['valid'])) {
                         unset($_SESSION['valid']);
@@ -123,8 +135,7 @@ function loginUser()
                     header("Location: ./admin");
                 }
             } else {
-                $_SESSION['valid'] = false;
-                header("Location: login.php");
+                echo "<p style='color: red;'>Invalid username or password</p>";
             }
         }
     }

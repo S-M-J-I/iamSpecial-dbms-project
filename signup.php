@@ -8,16 +8,7 @@
                 <div class="card shadow">
                     <div class="card-body mx-auto">
                         <h4 class="card-title mt-3 text-center">Create Account</h4>
-                        <p class="text-center">Get started with your free account</p>
-                        <p>
-                            <a href="" class="btn btn-block btn-info">
-                                <i class="fab fa-twitter mr-2"></i> Login via Twitter</a>
-                            <a href="" class="btn btn-block btn-primary">
-                                <i class="fab fa-facebook-f mr-2"></i> Login via facebook</a>
-                        </p>
-                        <p class="text-muted font-weight-bold ">
-                            <span>OR</span>
-                        </p>
+                        <hr>
                         <form action="signup.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
@@ -64,6 +55,12 @@
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
                                 <input name="repeat_password" class="form-control" placeholder="Repeat password" type="password">
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-image"></i> </span>
+                                </div>
+                                <input name="avatar" class="form-control" placeholder="Choose File" type="file">
                             </div>
                             <br>
                             <div class="form-group">

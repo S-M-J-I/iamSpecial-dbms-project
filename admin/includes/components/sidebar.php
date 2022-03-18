@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Welcome <?php echo $_SESSION["first_name"] ?></div>
+            <div class="small">Welcome <strong><?php echo strtoupper($_SESSION["first_name"]) ?></strong></div>
 
         </div>
     </nav>

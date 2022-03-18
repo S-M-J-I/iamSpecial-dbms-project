@@ -8,16 +8,7 @@
                 <div class="card shadow">
                     <div class="card-body mx-auto">
                         <h4 class="card-title mt-3 text-center">Log In</h4>
-                        <p class="text-center">Get started with your free account</p>
-                        <p>
-                            <a href="" class="btn btn-block btn-info">
-                                <i class="fab fa-twitter mr-2"></i> Login via Twitter</a>
-                            <a href="" class="btn btn-block btn-primary">
-                                <i class="fab fa-facebook-f mr-2"></i> Login via facebook</a>
-                        </p>
-                        <p class="text-muted font-weight-bold ">
-                            <span>OR</span>
-                        </p>
+                        <hr>
                         <form action="login.php" method="POST">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
