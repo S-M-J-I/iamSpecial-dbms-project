@@ -29,7 +29,7 @@
 </a>
 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-        <a class="nav-link" href="">Edit Profile</a>
+        <a class="nav-link" href="profile.php">Edit Profile</a>
     </nav>
 </div>
 
