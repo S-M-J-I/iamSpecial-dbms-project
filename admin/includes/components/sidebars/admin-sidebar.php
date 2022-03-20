@@ -13,10 +13,10 @@
 </a>
 <div class="collapse" id="collapseAdminToolsLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Admit Admin</a>
+        <a class="nav-link" href="view_admin.php">Admit Admin</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Add Category</a>
+        <a class="nav-link" href="categories.php">Add Category</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="layout-sidenav-light.php">Add Institution</a>
