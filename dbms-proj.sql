@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2022 at 06:53 AM
+-- Generation Time: Mar 21, 2022 at 06:11 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -20,6 +20,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbms-proj`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_categories`
+--
+
+CREATE TABLE `blog_categories` (
+  `cat_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `blog_categories`
+--
+
+INSERT INTO `blog_categories` (`cat_id`, `name`) VALUES
+(3, 'Autism Early Signs'),
+(4, 'Parenting'),
+(5, 'Causes '),
+(6, 'Sleep'),
+(7, 'Fitness');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `institution`
+--
+
+CREATE TABLE `institution` (
+  `ins_id` int(11) NOT NULL,
+  `ins_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -78,6 +111,18 @@ INSERT INTO `user_type` (`type_id`, `role`) VALUES
 --
 
 --
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `institution`
+--
+ALTER TABLE `institution`
+  ADD PRIMARY KEY (`ins_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -93,6 +138,18 @@ ALTER TABLE `user_type`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `institution`
+--
+ALTER TABLE `institution`
+  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
