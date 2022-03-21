@@ -67,7 +67,7 @@ function toggleAdmin($role, $id)
 function getAllUsersInATable()
 {
     global $connection;
-    $query = "SELECT * FROM users";
+    $query = "SELECT * FROM users ORDER BY role, username";
     $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
 
     if ($res) {
@@ -111,6 +111,24 @@ function makeAdmin($id)
 // * CREATE A CATEGORY
 function insert_category()
 {
+    global $connection;
+    if (isset($_POST["add"])) {
+        if ($_SESSION["role"] == 1) {
+            $name = $_POST["name"];
+            $name = mysqli_real_escape_string($connection, $name);
+
+            $sql = "INSERT INTO blog_categories(`name`) VALUES(?)";
+            $query = $connection->prepare($sql);
+            $query->bind_param("s", $name);
+            $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+            if ($res) {
+                header("Location: categories.php");
+            }
+        } else {
+            header("Location: 401.php");
+        }
+    }
 }
 
 function edit_category()
@@ -119,8 +137,35 @@ function edit_category()
 
 function getAllCategories()
 {
+    global $connection;
+    $query = "SELECT * FROM blog_categories";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "
+            <tr>
+                <td>{$row['cat_id']}</td>
+                <td>{$row['name']}</td>
+                <td><a style='color: red;' href=categories.php?id={$row['cat_id']}>Delete</a></td>
+            </tr>
+            ";
+        }
+    }
 }
 
 function delete_category()
 {
+    global $connection;
+    if (isset($_GET["id"])) {
+        $sql = "DELETE FROM blog_categories WHERE cat_id=?";
+        $query = $connection->prepare($sql);
+        $id = $_GET["id"];
+        $query->bind_param("i", $id);
+        $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+        if ($res) {
+            header("Location: categories.php");
+        }
+    }
 }
