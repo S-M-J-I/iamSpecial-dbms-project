@@ -44,7 +44,7 @@
                                 </div>
                                 <br>
                                 <div class="input-group-prepend">
-                                    <input class="btn btn-primary" type="submit" name="add" value="Add Category">
+                                    <input class="btn btn-primary" type="submit" name="add" value="+ Add Category">
                                 </div>
                             </form>
                             <?php insert_category(); ?>

@@ -34,19 +34,39 @@ function editUser()
     global $connection;
     if (isset($_POST["edit"])) {
         $username = $_POST["username"];
-        $password = $_POST["password"];
-
         $username = mysqli_real_escape_string($connection, $username);
-        $password = mysqli_real_escape_string($connection, $password);
+        $email = $_POST["email"];
+        $email = mysqli_real_escape_string($connection, $email);
 
-        $password = hashPassword($password);
+        $sql = "UPDATE users SET username='$username', email='$email'";
 
-        $sql = "UPDATE users SET username=?, password=? WHERE id=?";
-        $query = $connection->prepare($sql);
-        $query->bind_param("ssi", $username, $password, $_SESSION["id"]);
+        // TODO: FIX AVATAR ISSUE HERE
 
-        $res = $query->execute() or die("Failed" . mysqli_error($connection));
+        if ($_POST["password"] != "") {
+            $password = $_POST["password"];
+            $password = mysqli_real_escape_string($connection, $password);
+            $password = hashPassword($password);
+            $sql .= ", password='$password'";
+        }
+
+        if (isset($_FILES["avatar"]["name"])) {
+            $temp = explode(".", $_FILES["avatar"]["name"]);
+            $avatar = $_SESSION["id"] . '.' . end($temp);
+            $temp_avatar = $_FILES['avatar']['tmp_name'];
+            $sql .= ", avatar='$avatar'";
+        }
+
+        $id = $_SESSION["id"];
+        $sql .= " WHERE id=$id";
+
+        $query = $sql;
+        if (isset($_FILES["avatar"]["name"])) {
+            move_uploaded_file($temp_avatar, "../images/avatars/$avatar");
+        }
+        $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
         if ($res) {
+            $_SESSION["username"] = $username;
             header("Location: profile.php");
         }
     }

@@ -18,3 +18,11 @@
 </head>
 
 <body class="sb-nav-fixed">
+
+    <?php
+
+    if (!isset($_SESSION["role"])) {
+        header("Location: 401.php");
+    }
+
+    ?>

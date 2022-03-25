@@ -24,9 +24,9 @@
                                 <h1 class="display-1">401</h1>
                                 <p class="lead">Unauthorized</p>
                                 <p>Access to this resource is denied.</p>
-                                <a href="index.php">
+                                <a href="../index.php">
                                     <i class="fas fa-arrow-left me-1"></i>
-                                    Return to Dashboard
+                                    Go Back
                                 </a>
                             </div>
                         </div>
