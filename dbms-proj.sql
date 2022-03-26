@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2022 at 06:11 AM
+-- Generation Time: Mar 26, 2022 at 01:50 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -41,7 +41,8 @@ INSERT INTO `blog_categories` (`cat_id`, `name`) VALUES
 (4, 'Parenting'),
 (5, 'Causes '),
 (6, 'Sleep'),
-(7, 'Fitness');
+(7, 'Fitness'),
+(8, 'Health');
 
 -- --------------------------------------------------------
 
@@ -53,6 +54,32 @@ CREATE TABLE `institution` (
   `ins_id` int(11) NOT NULL,
   `ins_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `institutions`
+--
+
+CREATE TABLE `institutions` (
+  `ins_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `about` varchar(255) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `area` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `picture` text NOT NULL DEFAULT 'demo.jpg'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `institutions`
+--
+
+INSERT INTO `institutions` (`ins_id`, `name`, `about`, `street`, `area`, `city`, `state`, `phone`, `type`, `picture`) VALUES
+(1, 'XYZ institute', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'House #89, Shankar', 'Dhanmondi', 'Dhaka', 'Dhaka', '2441139', 'school', 'demo.jpg');
 
 -- --------------------------------------------------------
 
@@ -80,7 +107,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `verified`, `avatar`, `randSalt`) VALUES
 (5, 'S M Jishanul', 'Islam', 'smji14', '$2y$10$verycrazystring123456uWkYvBdEsXPdFCyZZtpiS2NAB3Ea7ZQi', 'jishanlion@gmail.com', 1, 'F', '5.jpg', '$2y$10$verycrazystring1234567'),
 (6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', 1, 'F', '6.jpg', '$2y$10$verycrazystring1234567'),
-(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456uSTOkMWieJ6u56l2pFCG4wVXwF6R2ZLa', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
+(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', '7.jpg', '$2y$10$verycrazystring1234567'),
 (8, 'Dr. Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', 2, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
 (9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
 (10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', 3, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
@@ -123,6 +150,12 @@ ALTER TABLE `institution`
   ADD PRIMARY KEY (`ins_id`);
 
 --
+-- Indexes for table `institutions`
+--
+ALTER TABLE `institutions`
+  ADD PRIMARY KEY (`ins_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -143,13 +176,19 @@ ALTER TABLE `user_type`
 -- AUTO_INCREMENT for table `blog_categories`
 --
 ALTER TABLE `blog_categories`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `institution`
 --
 ALTER TABLE `institution`
   MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `institutions`
+--
+ALTER TABLE `institutions`
+  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
