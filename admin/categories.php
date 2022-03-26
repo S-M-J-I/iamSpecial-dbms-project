@@ -1,5 +1,14 @@
 <?php include "includes/components/header.php" ?>
 
+<?php
+
+if ($_SESSION["role"] != 1) {
+    header("Location: 401.php");
+    return;
+}
+
+?>
+
 <?php include "includes/components/navbar.php" ?>
 <div id="layoutSidenav">
     <?php include "includes/components/sidebar.php" ?>

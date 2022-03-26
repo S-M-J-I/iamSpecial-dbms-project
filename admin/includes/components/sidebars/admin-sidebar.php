@@ -19,7 +19,7 @@
         <a class="nav-link" href="categories.php">Add Category</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Add Institution</a>
+        <a class="nav-link" href="institutions.php">Add Institution</a>
     </nav>
 </div>
 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

@@ -189,3 +189,35 @@ function delete_category()
         }
     }
 }
+
+
+
+// * ADD AN INSTITUTION
+function getAllInstitutions()
+{
+    global $connection;
+    $query = "SELECT * FROM institutions";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "
+            <tr>
+                <td>{$row['ins_id']}</td>
+                <td>{$row['name']}</td>
+                <td>{$row['about']}</td>
+                <td>{$row['phone']}</td>
+                <td>{$row['street']}, {$row['area']}, {$row['city']}, {$row['state']}</td>
+                <td>{$row['type']}</td>
+                <td><img width=200 class='img-responsive' src='../images/institutions/{$row['picture']}' alt='user image' /></td>
+                <td><a style='color: red;' href=categories.php?id={$row['ins_id']}>Delete</a></td>
+            </tr>
+            ";
+        }
+    }
+}
+
+// * DELETE AN INSTITUTE
+function deleteInstitute()
+{
+}
