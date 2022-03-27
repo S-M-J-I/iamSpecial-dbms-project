@@ -48,7 +48,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"> <strong>City</strong> </span>
             </div>
-            <input name="city" class="form-control" placeholder="City" type="text">
+            <input name="state" class="form-control" placeholder="City" type="text">
         </div>
         <br>
         <div class="form-group input-group">

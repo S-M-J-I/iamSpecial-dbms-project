@@ -10,8 +10,7 @@
             <th>Picture</th>
         </tr>
     </thead>
-    <tbody><?php getAllInstitutions();
-            deleteInstitute(); ?>
+    <tbody><?php getAllInstitutions(); ?>
     </tbody>
 </table>
 

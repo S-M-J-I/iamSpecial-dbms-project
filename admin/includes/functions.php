@@ -210,7 +210,7 @@ function getAllInstitutions()
                 <td>{$row['street']}, {$row['area']}, {$row['city']}, {$row['state']}</td>
                 <td>{$row['type']}</td>
                 <td><img width=200 class='img-responsive' src='../images/institutions/{$row['picture']}' alt='user image' /></td>
-                <td><a style='color: red;' href=categories.php?id={$row['ins_id']}>Delete</a></td>
+                <td><a style='color: red;' href=institutions.php?target=delete&id={$row['ins_id']}>Delete</a></td>
             </tr>
             ";
         }
@@ -222,7 +222,7 @@ function addInstitute()
 {
     global $connection;
     if (isset($_POST["add"])) {
-        $sql = "INSERT INTO institutions VALUES(?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO institutions(`name`, `about`, `street`, `area`, `city`, `state`, `phone`, `type`, `picture`) VALUES(?,?,?,?,?,?,?,?,?)";
 
         $name = $_POST["name"];
         $about = $_POST["about"];
@@ -239,7 +239,7 @@ function addInstitute()
 
         move_uploaded_file($temp_picture, "../images/institutions/$picture");
         $query = $connection->prepare($sql);
-        $query->bind_param("sssssssss", $name, $about, $phone, $street, $area, $city, $state, $type, $picture);
+        $query->bind_param("sssssssss", $name, $about, $street, $area, $city, $state, $phone, $type, $picture);
         $res = $query->execute() or die("Failed" . mysqli_error($connection));
 
         if ($res) {
@@ -252,4 +252,19 @@ function addInstitute()
 // * DELETE AN INSTITUTE
 function deleteInstitute()
 {
+    global $connection;
+    if ($_SESSION["role"] != 1) {
+        header("Location: 404.php");
+        return;
+    }
+
+    $id = $_GET["id"];
+    $sql = "DELETE FROM institutions WHERE ins_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: institutions.php");
+    }
 }

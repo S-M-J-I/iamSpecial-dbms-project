@@ -40,6 +40,10 @@ if ($_SESSION["role"] != 1) {
                                         include "includes/components/admin_components/add_institute.php";
                                         break;
                                     }
+                                case "delete": {
+                                        deleteInstitute();
+                                        break;
+                                    }
                                 default: {
                                         include "includes/components/admin_components/view_all_institutes.php";
                                         break;

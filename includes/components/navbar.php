@@ -19,9 +19,7 @@
                         Blogs
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="blogs.php">Category Here</a>
-                        <a class="dropdown-item" href="#">Category Here</a>
-                        <a class="dropdown-item" href="#">Category Here</a>
+                        <?php getAllCategoriesAsList("blogs") ?>
                     </div>
                 </li>
 

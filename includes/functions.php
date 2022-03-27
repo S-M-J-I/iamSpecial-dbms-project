@@ -140,3 +140,29 @@ function loginUser()
         }
     }
 }
+
+
+// * HELPER TO PRINT RESULTS AS DROPDOWNLISTS
+function getDropDownVersion($res, $type)
+{
+    while ($row = mysqli_fetch_assoc($res)) {
+        echo "
+        <a class='dropdown-item' href='{$type}.php'>{$row['name']}</a>
+        ";
+    }
+}
+
+
+
+
+// * GET CATEGORY NAMES
+function getAllCategoriesAsList($type)
+{
+    global $connection;
+    $query = "SELECT name FROM blog_categories";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        getDropDownVersion($res, $type);
+    }
+}
