@@ -20,32 +20,33 @@ if ($_SESSION["role"] != 1) {
                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                     <li class="breadcrumb-item active">Add Institution</li>
                 </ol>
-                <div class="card mb-4">
-                    <div class="wrapper">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <?php
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php
 
-                                $src;
+                            $src;
 
-                                if (isset($_GET["target"])) {
-                                    $src = $_GET["target"];
-                                } else {
-                                    $src = "";
-                                }
+                            if (isset($_GET["target"])) {
+                                $src = $_GET["target"];
+                            } else {
+                                $src = "";
+                            }
 
-                                switch ($src) {
+                            switch ($src) {
 
-                                        // TODO: Add institution form and delete institution
+                                    // TODO: Add institution form and delete institution
+                                case "add": {
+                                        include "includes/components/admin_components/add_institute.php";
+                                        break;
+                                    }
+                                default: {
+                                        include "includes/components/admin_components/view_all_institutes.php";
+                                        break;
+                                    }
+                            }
 
-                                    default: {
-                                            include "includes/components/admin_components/view_all_institutes.php";
-                                            break;
-                                        }
-                                }
-
-                                ?>
-                            </div>
+                            ?>
                         </div>
                     </div>
                 </div>

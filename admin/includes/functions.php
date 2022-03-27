@@ -217,6 +217,38 @@ function getAllInstitutions()
     }
 }
 
+// * ADD AN INSTITUTE
+function addInstitute()
+{
+    global $connection;
+    if (isset($_POST["add"])) {
+        $sql = "INSERT INTO institutions VALUES(?,?,?,?,?,?,?,?,?)";
+
+        $name = $_POST["name"];
+        $about = $_POST["about"];
+        $phone = $_POST["phone"];
+        $street = $_POST["street"];
+        $area = $_POST["area"];
+        $city = $_POST["city"];
+        $state = $_POST["state"];
+        $type = $_POST["type"];
+
+        $temp = explode(".", $_FILES["picture"]["name"]);
+        $picture = $name . '.' . end($temp);
+        $temp_picture = $_FILES['picture']['tmp_name'];
+
+        move_uploaded_file($temp_picture, "../images/institutions/$picture");
+        $query = $connection->prepare($sql);
+        $query->bind_param("sssssssss", $name, $about, $phone, $street, $area, $city, $state, $type, $picture);
+        $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+        if ($res) {
+            header("Location: institutions.php");
+        }
+    }
+}
+
+
 // * DELETE AN INSTITUTE
 function deleteInstitute()
 {
