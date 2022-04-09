@@ -63,9 +63,9 @@
 </a>
 <div class="collapse" id="collapseVerify" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Users</a>
+        <a class="nav-link" href="verification.php?type=user">Users</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Counsilors</a>
+        <a class="nav-link" href="verification.php?type=counselor">Counselors</a>
     </nav>
 </div>

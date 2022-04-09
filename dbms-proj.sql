@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2022 at 01:50 PM
+-- Generation Time: Apr 09, 2022 at 01:05 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -43,17 +43,6 @@ INSERT INTO `blog_categories` (`cat_id`, `name`) VALUES
 (6, 'Sleep'),
 (7, 'Fitness'),
 (8, 'Health');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `institution`
---
-
-CREATE TABLE `institution` (
-  `ins_id` int(11) NOT NULL,
-  `ins_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -109,9 +98,9 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `e
 (6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', 1, 'F', '6.jpg', '$2y$10$verycrazystring1234567'),
 (7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', '7.jpg', '$2y$10$verycrazystring1234567'),
 (8, 'Dr. Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', 2, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
-(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
+(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'T', '9.jpg', '$2y$10$verycrazystring1234567'),
 (10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', 3, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
-(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', 2, 'F', '11.jpg', '$2y$10$verycrazystring1234567');
+(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', 2, 'T', '11.jpg', '$2y$10$verycrazystring1234567');
 
 -- --------------------------------------------------------
 
@@ -133,6 +122,19 @@ INSERT INTO `user_type` (`type_id`, `role`) VALUES
 (2, 'counselor'),
 (3, 'user');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verification`
+--
+
+CREATE TABLE `verification` (
+  `user_id` int(11) NOT NULL,
+  `id1` text DEFAULT NULL,
+  `id2` text DEFAULT NULL,
+  `NID _num` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -142,12 +144,6 @@ INSERT INTO `user_type` (`type_id`, `role`) VALUES
 --
 ALTER TABLE `blog_categories`
   ADD PRIMARY KEY (`cat_id`);
-
---
--- Indexes for table `institution`
---
-ALTER TABLE `institution`
-  ADD PRIMARY KEY (`ins_id`);
 
 --
 -- Indexes for table `institutions`
@@ -169,6 +165,12 @@ ALTER TABLE `user_type`
   ADD PRIMARY KEY (`type_id`);
 
 --
+-- Indexes for table `verification`
+--
+ALTER TABLE `verification`
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -179,16 +181,10 @@ ALTER TABLE `blog_categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `institution`
---
-ALTER TABLE `institution`
-  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `institutions`
 --
 ALTER TABLE `institutions`
-  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -211,6 +207,12 @@ ALTER TABLE `user_type`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role`) REFERENCES `user_type` (`type_id`);
+
+--
+-- Constraints for table `verification`
+--
+ALTER TABLE `verification`
+  ADD CONSTRAINT `verification_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

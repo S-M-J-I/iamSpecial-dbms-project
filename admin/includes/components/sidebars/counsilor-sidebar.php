@@ -13,11 +13,20 @@
 </a>
 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-        <a class="nav-link" href="">Edit Profile</a>
+        <a class="nav-link" href="profile.php">Edit Profile</a>
     </nav>
-    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-        <a class="nav-link" href="">Verify My Profile</a>
-    </nav>
+    <?php
+
+    if (!isVerified($_SESSION["id"])) {
+        echo "
+        <nav class='sb-sidenav-menu-nested nav accordion' id='sidenavAccordionPages'>
+            <a class='nav-link' href='profile-verify.php'>Verify My Profile</a>
+        </nav>
+        ";
+    }
+
+    ?>
+
     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
         <a class="nav-link" href="">Delete Profile</a>
     </nav>

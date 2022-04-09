@@ -28,6 +28,207 @@ function getUserDetailsByID($id)
     }
 }
 
+// * FIND IF USER PROFILE IS VERIFIED OR NOT
+function isVerified($id)
+{
+    global $connection;
+    $query = "SELECT verified FROM users WHERE id=$id";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        $row = mysqli_fetch_assoc($res);
+        if ($row["verified"] == 'T') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+// * ADD TO VERIFICATION QUEUE
+function addToVerificationQueue()
+{
+    global $connection;
+    // TODO: save the NID pictures to DB for admin verification
+    if (isset($_POST["verify"])) {
+        $user_id = $_SESSION["id"];
+
+        $temp = explode(".", $_FILES["id1"]["name"]);
+        $id1 = $_SESSION["id"] . '-1.' . end($temp);
+        $temp_id1 = $_FILES['id1']['tmp_name'];
+
+        $temp = explode(".", $_FILES["id2"]["name"]);
+        $id2 = $_SESSION["id"] . '-2.' . end($temp);
+        $temp_id2 = $_FILES['id2']['tmp_name'];
+
+        $nid_num = mysqli_real_escape_string($connection, $_POST["NID"]);
+
+        // ? Save the pics as -1 and -2 in verifications folder
+        move_uploaded_file($temp_id1, "../images/verifications/$id1");
+        move_uploaded_file($temp_id2, "../images/verifications/$id2");
+
+        $sql = "INSERT INTO verification VALUES ($user_id, '$id1', '$id2', $nid_num)";
+        $res = mysqli_query($connection, $sql) or die("Failed" . mysqli_error($connection));
+
+        if ($res) {
+            header("Location: profile-verify.php");
+        }
+    }
+}
+
+// * GET ALL PROFILE THAT NEEDS TO BE VERIFIED BASED ON NID PICS AND NID NUM
+function getAllPendingVerifications($type)
+{
+    global $connection;
+    if ($_SESSION["role"] == 1) {
+        $query =
+            "SELECT \n"
+
+            . "	verification.user_id as id,\n"
+
+            . "    CONCAT(users.first_name, ' ', users.last_name) full_name,\n"
+
+            . "    users.avatar avatar,\n"
+
+            . "    verification.id1 id1,\n"
+
+            . "    verification.id2 id2,\n"
+
+            . "    users.role role\n"
+
+            . "FROM\n"
+
+            . "	users\n"
+
+            . "    JOIN\n"
+
+            . "    verification\n"
+
+            . "    ON users.id = verification.user_id\n"
+
+            . "WHERE\n"
+
+            . "	role = $type;";
+
+        $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+        if ($res) {
+
+            if (mysqli_num_rows($res) == 0) {
+                echo "<h3>No " . getRoleByID($type) . "s to verify!</h3><br>";
+            } else {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    echo "
+                    <tr>
+                        <td>{$row['id']}</td>
+                        <td>{$row['full_name']}</td>
+                        <td><img width=100 class='img-responsive' src='../images/avatars/{$row['avatar']}' alt='user image' /></td>
+                        <td><img width=100 class='img-responsive' src='../images/verifications/{$row['id1']}' alt='user image' /></td>
+                        <td><img width=100 class='img-responsive' src='../images/verifications/{$row['id2']}' alt='user image' /></td>
+                        <td>" . getRoleByID($row["role"]) . "</td>
+                        <td><a href='verification.php?id={$row['id']}&status=accept'>Accept</a></td>
+                        <td><a href='verification.php?id={$row['id']}&status=reject'>Reject</a></td>
+                    </tr>
+                    ";
+                }
+            }
+        }
+    } else {
+        header("Location: 404.php");
+    }
+}
+
+// * ACCEPT VERIFICATION REQUEST
+function acceptVerificationRequest($id)
+{
+    global $connection;
+    if ($_SESSION["role"] != 1) {
+        header("Location: 404.php");
+        return;
+    }
+
+    $sql = "UPDATE users SET verified='T' WHERE id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+    $sql = "SELECT * FROM verification WHERE user_id=$id";
+    $res = mysqli_query($connection, $sql) or die("Failed" . mysqli_error($connection));
+    $user = mysqli_fetch_assoc($res);
+
+    $sql = "DELETE FROM verification WHERE user_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed" . mysqli_error($connection));
+    unlink("../images/verifications/{$user['id1']}");
+    unlink("../images/verifications/{$user['id2']}");
+
+    $sql = "SELECT role FROM users WHERE id=$id";
+    $res = mysqli_query($connection, $sql) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: verification.php?type=" . getRoleByID(mysqli_fetch_assoc($res)["role"]));
+    }
+}
+
+
+// * DECLINE VERIFICATION REQUEST
+function declineVerificationRequest($id)
+{
+    global $connection;
+    if ($_SESSION["role"] != 1) {
+        header("Location: 404.php");
+        return;
+    }
+
+    $sql = "UPDATE users SET verified='F' WHERE id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed" . mysqli_error($connection));
+
+    $sql = "SELECT * FROM verification WHERE user_id=$id";
+    $res = mysqli_query($connection, $sql) or die("Failed" . mysqli_error($connection));
+    $user = mysqli_fetch_assoc($res);
+
+    $sql = "DELETE FROM verification WHERE user_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed" . mysqli_error($connection));
+    unlink("../images/verifications/{$user['id1']}");
+    unlink("../images/verifications/{$user['id2']}");
+
+    $sql = "SELECT role FROM users WHERE id=$id";
+    $res = mysqli_query($connection, $sql) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: verification.php?type=" . getRoleByID(mysqli_fetch_assoc($res)["role"]));
+    }
+}
+
+
+
+
+// * CHECK IF USER VERIFICATION IS IN QUEUE OR NOT
+function seeIfInVerificationQueue()
+{
+    global $connection;
+    $user_id = $_SESSION["id"];
+    $query = "SELECT * FROM verification WHERE user_id=$user_id";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        if (mysqli_num_rows($res) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+
+
 // * THIS FUNCTION EDITS A USER
 function editUser()
 {
