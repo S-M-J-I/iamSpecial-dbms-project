@@ -94,6 +94,8 @@ function getAllPendingVerifications($type)
 
             . "    verification.id2 id2,\n"
 
+            . "    verification.NID NID,\n"
+
             . "    users.role role\n"
 
             . "FROM\n"
@@ -125,6 +127,7 @@ function getAllPendingVerifications($type)
                         <td><img width=100 class='img-responsive' src='../images/avatars/{$row['avatar']}' alt='user image' /></td>
                         <td><img width=100 class='img-responsive' src='../images/verifications/{$row['id1']}' alt='user image' /></td>
                         <td><img width=100 class='img-responsive' src='../images/verifications/{$row['id2']}' alt='user image' /></td>
+                        <td>{$row['NID']}</td>
                         <td>" . getRoleByID($row["role"]) . "</td>
                         <td><a href='verification.php?id={$row['id']}&status=accept'>Accept</a></td>
                         <td><a href='verification.php?id={$row['id']}&status=reject'>Reject</a></td>

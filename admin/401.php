@@ -26,7 +26,7 @@
                                 <p>Access to this resource is denied.</p>
                                 <a href="../index.php">
                                     <i class="fas fa-arrow-left me-1"></i>
-                                    Go Back
+                                    Back to Homepage
                                 </a>
                             </div>
                         </div>

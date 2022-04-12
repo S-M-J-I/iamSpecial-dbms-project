@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="datatablesSimple">
     <thead>
         <tr>
             <th>ID</th>
@@ -6,6 +6,7 @@
             <th>Avatar</th>
             <th>Face 1</th>
             <th>Face 2</th>
+            <th>NID Number</th>
             <th>Role</th>
         </tr>
     </thead>
