@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container px-lg-5">
-        <a class="navbar-brand" href="index.php">IamSpecial</a>
+        <a class="navbar-brand" href="index.php"> <img width="300" src="images/resources/brand.png" alt="" srcset=""> </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -34,11 +34,16 @@
                 </li>
                 <?php
                 if (isset($_SESSION["role"])) {
-                    echo "<li class='nav-item'><a class='nav-link active' aria-current='page' href='./admin/index.php'>Dashboard</a></li>";
+                    if ($_SESSION["role"] == 3) {
+                        echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='bookings.php'><strong>Book an appointment</strong></a></li>";
+                    }
+                    echo "
+                    <li class='nav-item'><a class='nav-link active' aria-current='page' href='./admin/index.php'><strong>Dashboard</strong></a></li>
+                    ";
                 } else {
                     echo "
                     <li class='nav-item'><a class='nav-link' aria-current='page' href='login.php'>Log In</a></li>
-                    <li class='nav-item'><a class='btn btn-primary' aria-current='page' href='signup.php'>Sign Up</a></li>
+                    <li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='signup.php'><strong>Sign Up</strong></a></li>
                     ";
                 }
                 ?>

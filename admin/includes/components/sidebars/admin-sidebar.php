@@ -53,6 +53,23 @@
     </nav>
 </div>
 
+<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#complaints" aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-ban"></i></div>
+    Complaints
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+</a>
+<div class="collapse" id="complaints" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link" href="layout-sidenav-light.php">About users</a>
+    </nav>
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link" href="layout-sidenav-light.php">About counselors</a>
+    </nav>
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link" href="layout-sidenav-light.php">About institutions</a>
+    </nav>
+</div>
+
 
 <!-- ADMIN VERIFICATION CONTROLS -->
 <div class="sb-sidenav-menu-heading">Verifications</div>

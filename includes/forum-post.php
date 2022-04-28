@@ -15,7 +15,6 @@ for ($i = 0; $i < 10; ++$i) {
                     <div class='row text-center op-7'>
                         <div class='col px-1'> <i class='ion-connection-bars icon-1x'></i> <span class='d-block text-sm'>141 Votes</span> </div>
                         <div class='col px-1'> <i class='ion-ios-chatboxes-outline icon-1x'></i> <span class='d-block text-sm'>122 Replys</span> </div>
-                        <div class='col px-1'> <i class='ion-ios-eye-outline icon-1x'></i> <span class='d-block text-sm'>290 Views</span> </div>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+<?php $title = "Post" ?>
 <?php include "includes/components/header.php" ?>
 
 <!-- Responsive navbar-->

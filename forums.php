@@ -1,3 +1,4 @@
+<?php $title = "Forums" ?>
 <?php include "includes/components/header.php" ?>
 
 <?php include "includes/components/navbar.php" ?>
@@ -52,7 +53,6 @@
                             <option> Filter by </option>
                             <option> Votes </option>
                             <option> Replys </option>
-                            <option> Views </option>
                         </select>
                     </div>
                 </div>

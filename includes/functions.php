@@ -33,6 +33,25 @@ function getLastEnteredID()
     }
 }
 
+
+// * FIND IF USER PROFILE IS VERIFIED OR NOT
+function isVerified($id)
+{
+    global $connection;
+    $query = "SELECT verified FROM users WHERE id=$id";
+    $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
+
+    if ($res) {
+        $row = mysqli_fetch_assoc($res);
+        if ($row["verified"] == 'T') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
 function getRoleByID($id)
 {
     global $connection;
@@ -152,7 +171,15 @@ function getDropDownVersion($res, $type)
     }
 }
 
-
+function getUserByID($id)
+{
+    global $connection;
+    $query = "SELECT * FROM users WHERE id='$id'";
+    $res = mysqli_query($connection, $query) or die("Failed " . mysqli_error($connection));
+    if ($res) {
+        return mysqli_fetch_assoc($res);
+    }
+}
 
 
 // * GET CATEGORY NAMES

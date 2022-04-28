@@ -1,3 +1,4 @@
+<?php $title = "Blogs" ?>
 <?php include "includes/components/header.php" ?>
 <!-- Responsive navbar-->
 <?php include "includes/components/navbar.php" ?>

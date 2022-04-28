@@ -1,7 +1,8 @@
+<?php $title = "Sign Up" ?>
 <?php include "includes/components/header.php" ?>
 
 <?php include "includes/components/navbar.php" ?>
-<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-image: url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1920&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=c0d43804e2c7c93143fe8ff65398c8e9);">
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-repeat: no-repeat; background-image: url('images/resources/log-in.png');">
     <div class="container-fluid">
         <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
             <div class="col-12 col-md-4 col-lg-3   h-50 ">
@@ -64,10 +65,11 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <button name="submit" type="submit" class="btn btn-primary btn-block"> Create Account </button>
+                                <button style="background-color: #43DBAD;border:none;border-radius:30px;font-size:1.1rem;padding:10px;" name="submit" type="submit" class="btn btn-primary btn-block"> <strong>Create Account</strong> </button>
                             </div>
                             <br>
                             <p class="text-center">Have an account?
+                                <br>
                                 <a href="login.php">Log In</a>
                             </p>
                         </form>

@@ -247,6 +247,12 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
   text-decoration: none;
 }
 
+.nav-grad {
+  background: rgb(214,90,235);
+  background: linear-gradient(90deg, rgba(214,90,235,1) 9%, rgba(245,22,130,1) 100%);
+}
+
+
 pre,
 code,
 kbd,

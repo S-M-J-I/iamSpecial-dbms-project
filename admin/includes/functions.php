@@ -280,7 +280,7 @@ function editUser()
 function toggleAdmin($role, $id)
 {
     if ($role != 1) {
-        return "<a href='view_admin.php?target=make&id={$id}'>Make Admin</a>";
+        return "<a onClick=\"javascript: return confirm('Are you sure you want to make this user an admin?');\" href='view_admin.php?target=make&id={$id}'>Make Admin</a>";
     } else {
         return "<p style='color: green;'><strong>ADMIN</strong></p>";
     }
@@ -471,4 +471,21 @@ function deleteInstitute()
     if ($res) {
         header("Location: institutions.php");
     }
+}
+
+
+// ** PRINT CARDS ACCORDING TO THEIR COLOR
+function printCards($content, $link, $color)
+{
+    echo "
+    <div class='col-xl-3 col-md-6'>
+        <div class='card bg-$color text-white mb-4'>
+            <div class='card-body'><strong>{$content}</strong></div>
+            <div class='card-footer d-flex align-items-center justify-content-between'>
+                <a class='small text-white stretched-link' href='{$link}'>View Details</a>
+                <div class='small text-white'><i class='fas fa-angle-right'></i></div>
+            </div>
+        </div>
+    </div>
+    ";
 }
