@@ -99,7 +99,7 @@ include "includes/components/header.php" ?>
                                                 <p><strong>Email:</strong> {$row['email']}</p>
                                             </div>
                                             <div style='text-align: center; align-items: center; justify-content: center; line-height: 200px; height: 200px;' class='col-xl-2 col-md-4'>
-                                                <a class='btn btn-primary' href='chat.php?bookFor={$row['id']}'>Book Now!</a>
+                                                <a class='btn btn-primary' href='chat.php?chatWith={$row['id']}'>Book Now!</a>
                                             </div>
                                         </div>
                                     </div>

@@ -181,6 +181,25 @@ function getUserByID($id)
     }
 }
 
+function getAvatarByID($id)
+{
+    global $connection;
+    $query = "SELECT avatar FROM users WHERE id='$id'";
+    $res = mysqli_query($connection, $query) or die("Failed " . mysqli_error($connection));
+    if ($res) {
+        return mysqli_fetch_assoc($res)["avatar"];
+    }
+}
+
+function findWhoUserIsChattingWith($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM users WHERE id IN (SELECT receiver FROM chats WHERE sender='$id')";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    return $res;
+}
+
 
 // * GET CATEGORY NAMES
 function getAllCategoriesAsList($type)

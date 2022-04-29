@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2022 at 01:05 PM
+-- Generation Time: Apr 29, 2022 at 03:45 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -42,7 +42,38 @@ INSERT INTO `blog_categories` (`cat_id`, `name`) VALUES
 (5, 'Causes '),
 (6, 'Sleep'),
 (7, 'Fitness'),
-(8, 'Health');
+(8, 'Health'),
+(9, 'Speech');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chats`
+--
+
+CREATE TABLE `chats` (
+  `chat_id` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chats`
+--
+
+INSERT INTO `chats` (`chat_id`, `sender`, `receiver`, `message`) VALUES
+(12, 9, 11, 'Hello There'),
+(15, 9, 11, 'Hello'),
+(16, 9, 11, 'Hi?'),
+(17, 9, 11, 'Works?'),
+(18, 9, 11, 'Yesss'),
+(19, 11, 9, 'What\\\'s up?'),
+(20, 11, 9, 'When will you book appointment?'),
+(21, 9, 11, 'Tomorrow'),
+(22, 9, 11, 'Okay\\\'s'),
+(23, 9, 8, 'Hi Dr Ryan'),
+(24, 9, 11, 'There?');
 
 -- --------------------------------------------------------
 
@@ -86,6 +117,10 @@ CREATE TABLE `users` (
   `role` int(11) DEFAULT 3,
   `verified` enum('T','F') DEFAULT 'F',
   `avatar` text DEFAULT 'demo.jpg',
+  `area` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `speciality` varchar(255) DEFAULT NULL,
   `randSalt` varchar(255) DEFAULT '$2y$10$verycrazystring1234567'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -93,14 +128,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `verified`, `avatar`, `randSalt`) VALUES
-(5, 'S M Jishanul', 'Islam', 'smji14', '$2y$10$verycrazystring123456uWkYvBdEsXPdFCyZZtpiS2NAB3Ea7ZQi', 'jishanlion@gmail.com', 1, 'F', '5.jpg', '$2y$10$verycrazystring1234567'),
-(6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', 1, 'F', '6.jpg', '$2y$10$verycrazystring1234567'),
-(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', '7.jpg', '$2y$10$verycrazystring1234567'),
-(8, 'Dr. Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', 2, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
-(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'T', '9.jpg', '$2y$10$verycrazystring1234567'),
-(10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', 3, 'F', 'demo.jpg', '$2y$10$verycrazystring1234567'),
-(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', 2, 'T', '11.jpg', '$2y$10$verycrazystring1234567');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `verified`, `avatar`, `area`, `city`, `state`, `speciality`, `randSalt`) VALUES
+(5, 'S M Jishanul', 'Islam', 'smji14', '$2y$10$verycrazystring123456uWkYvBdEsXPdFCyZZtpiS2NAB3Ea7ZQi', 'jishanlion@gmail.com', 1, 'F', '5.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
+(6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', 1, 'F', '6.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
+(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', '7.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
+(8, 'Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', 2, 'T', 'demo.jpg', 'House #89, Shankar Chairman Goli, Shankar, West Dhanmondi', 'Dhaka', 'Dhaka', 'Speech Therapy, Epilepsy ', '$2y$10$verycrazystring1234567'),
+(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'T', '9.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
+(10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', 3, 'F', 'demo.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
+(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', 2, 'T', '11.jpg', 'House #48, Marine Drive', 'Cox\'s Bazar', 'Chittagong', 'Speech Therapy, Epilepsy, Fitness, Health', '$2y$10$verycrazystring1234567');
 
 -- --------------------------------------------------------
 
@@ -132,7 +167,7 @@ CREATE TABLE `verification` (
   `user_id` int(11) NOT NULL,
   `id1` text DEFAULT NULL,
   `id2` text DEFAULT NULL,
-  `NID _num` int(11) NOT NULL
+  `NID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -144,6 +179,12 @@ CREATE TABLE `verification` (
 --
 ALTER TABLE `blog_categories`
   ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `chats`
+--
+ALTER TABLE `chats`
+  ADD PRIMARY KEY (`chat_id`);
 
 --
 -- Indexes for table `institutions`
@@ -178,7 +219,13 @@ ALTER TABLE `verification`
 -- AUTO_INCREMENT for table `blog_categories`
 --
 ALTER TABLE `blog_categories`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `chats`
+--
+ALTER TABLE `chats`
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `institutions`
