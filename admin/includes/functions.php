@@ -489,3 +489,79 @@ function printCards($content, $link, $color)
     </div>
     ";
 }
+
+
+// * BOOK AN APPOINTMENT
+function bookAppointment()
+{
+    global $connection;
+    $booker = $_POST["booker"];
+    $booked_to = $_POST["booked_to"];
+    $booker_type = $_POST["booker_type"];
+    $date = $_POST["date"];
+    $time = $_POST["time"];
+    $agenda = $_POST["agenda"];
+
+    $sql = "INSERT INTO bookings(`booker`, `booked_to`, `booker_type`, `date`, `time`, `agenda`) VALUES(?,?,?,?,?,?)";
+    $query = $connection->prepare($sql);
+    $query->bind_param("iissss", $booker, $booked_to, $booker_type, $date, $time, $agenda);
+    $res = $query->execute() or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: counselor-bookings.php");
+    }
+}
+
+// * SEE ALL APPOINTMENTS FROM COUNSELOR VIEW
+function getAllAppointmentsFromCounselorView()
+{
+    global $connection;
+    $booked_to = $_SESSION["id"];
+    $sql = "SELECT \n"
+
+        . "	booker,\n"
+
+        . "    (SELECT CONCAT(first_name, \" \", last_name) FROM users WHERE id = booker) as full_name,\n"
+
+        . "    (SELECT phone FROM users WHERE id = booker) phone,\n"
+
+        . "    booker_type,\n"
+
+        . "    date,\n"
+
+        . "    time,\n"
+
+        . "    agenda,\n"
+
+        . "    is_finished\n"
+
+        . "FROM\n"
+
+        . "	bookings b\n"
+
+        . "    INNER JOIN\n"
+
+        . "    users u\n"
+
+        . "    WHERE b.booked_to = '$booked_to'\n"
+
+        . "    GROUP BY booker";
+
+    $res = mysqli_query($connection, $sql);
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "
+            <tr>
+                <td>{$row['full_name']}</td>
+                <td>{$row['phone']}</td>
+                <td>{$row['booker_type']}</td>
+                <td>" . date('F j, Y', strtotime($row["date"])) . "</td>
+                <td>" . date('g:i:a', strtotime($row["time"])) . "</td>
+                <td style='text-align: justify; text-justify: inter-word;'>{$row['agenda']}</td>
+                <td>{$row['is_finished']}</td>
+            </tr>
+            ";
+        }
+    }
+}

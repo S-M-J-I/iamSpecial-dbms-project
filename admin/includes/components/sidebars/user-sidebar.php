@@ -58,7 +58,7 @@
         <a style="color: white;" class="nav-link" href="">Forum Posts</a>
     </nav>
 </div>
-<a style="color: white;" class="nav-link" href="#">
+<a style="color: white;" class="nav-link" href="counselor-bookings.php">
     <div class="sb-nav-link-icon"><i class="fas fa-duotone fa-book-medical"></i></div>
-    Counsilor Bookings
+    Counselor Bookings
 </a>

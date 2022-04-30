@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2022 at 03:45 PM
+-- Generation Time: Apr 30, 2022 at 11:21 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -44,6 +44,30 @@ INSERT INTO `blog_categories` (`cat_id`, `name`) VALUES
 (7, 'Fitness'),
 (8, 'Health'),
 (9, 'Speech');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `booking_id` int(11) NOT NULL,
+  `booker` int(11) NOT NULL,
+  `booked_to` int(11) NOT NULL,
+  `booker_type` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `agenda` varchar(255) NOT NULL,
+  `is_finished` enum('T','F') NOT NULL DEFAULT 'F'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `booker`, `booked_to`, `booker_type`, `date`, `time`, `agenda`, `is_finished`) VALUES
+(1, 9, 11, 'User', '2022-05-25', '17:30:00', 'Speech Therapy', 'F');
 
 -- --------------------------------------------------------
 
@@ -114,6 +138,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL DEFAULT '12345678911',
   `role` int(11) DEFAULT 3,
   `verified` enum('T','F') DEFAULT 'F',
   `avatar` text DEFAULT 'demo.jpg',
@@ -128,14 +153,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `verified`, `avatar`, `area`, `city`, `state`, `speciality`, `randSalt`) VALUES
-(5, 'S M Jishanul', 'Islam', 'smji14', '$2y$10$verycrazystring123456uWkYvBdEsXPdFCyZZtpiS2NAB3Ea7ZQi', 'jishanlion@gmail.com', 1, 'F', '5.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
-(6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', 1, 'F', '6.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
-(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', 1, 'F', '7.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
-(8, 'Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', 2, 'T', 'demo.jpg', 'House #89, Shankar Chairman Goli, Shankar, West Dhanmondi', 'Dhaka', 'Dhaka', 'Speech Therapy, Epilepsy ', '$2y$10$verycrazystring1234567'),
-(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', 3, 'T', '9.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
-(10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', 3, 'F', 'demo.jpg', '', '', '', NULL, '$2y$10$verycrazystring1234567'),
-(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', 2, 'T', '11.jpg', 'House #48, Marine Drive', 'Cox\'s Bazar', 'Chittagong', 'Speech Therapy, Epilepsy, Fitness, Health', '$2y$10$verycrazystring1234567');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `phone`, `role`, `verified`, `avatar`, `area`, `city`, `state`, `speciality`, `randSalt`) VALUES
+(5, 'S M Jishanul', 'Islam', 'smji14', '$2y$10$verycrazystring123456uWkYvBdEsXPdFCyZZtpiS2NAB3Ea7ZQi', 'jishanlion@gmail.com', '01759338652', 1, 'F', '5.jpg', 'House #89, Shankar Chairman Goli, Shankar, West Dhanmondi', 'Dhaka', 'Dhaka', NULL, '$2y$10$verycrazystring1234567'),
+(6, 'Sadia', 'Ahmmed', 'sahmmed', '$2y$10$verycrazystring123456u8imG4og/4q73zzZIAo4JqmKlhLCVoPG', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 1, 'F', '6.jpg', 'House 12, Road 16/A, Gulshan 1', 'Dhaka', 'Dhaka', NULL, '$2y$10$verycrazystring1234567'),
+(7, 'Mysun', 'Mashira', 'mysun', '$2y$10$verycrazystring123456u5pMx6iLXIdghYQJsTud0rJhCKu3H7aK', 'mmashira201011@bscse.uiu.ac.bd', '19303048392', 1, 'F', '7.jpg', 'Chanmia Housing, Gate #3, Mohammedpur', 'Dhaka', 'Dhaka', NULL, '$2y$10$verycrazystring1234567'),
+(8, 'Ryan', 'Goslin', 'ryanG', '$2y$10$verycrazystring123456uAuQGUvtaTxeXtj9menS0LCSY0/Pm1K2', 'rg@gmail.com', '923472373', 2, 'T', 'demo.jpg', 'House #89, Shankar Chairman Goli, Shankar, West Dhanmondi', 'Dhaka', 'Dhaka', 'Speech Therapy, Epilepsy ', '$2y$10$verycrazystring1234567'),
+(9, 'John', 'Doe', 'jdoe', '$2y$10$verycrazystring123456ugvWBBztWU3yP8QSso431UVJ0DlQgoTS', 'j.doe@gmail.com', '12345678911', 3, 'T', '9.jpg', 'Some area', 'Some city', 'Barisal', NULL, '$2y$10$verycrazystring1234567'),
+(10, 'Jane', 'Doe', 'jane', '$2y$10$verycrazystring123456uFRIT2pdMOT/VJuONmQWWy0nVV/.zgwm', 'jane.doe@gmail.com', '23534534435', 3, 'F', 'demo.jpg', 'Dmd lake', 'Dhaka', 'Dhaka', NULL, '$2y$10$verycrazystring1234567'),
+(11, 'Christian', 'Bale', 'c.bale', '$2y$10$verycrazystring123456uctzw2F2IQYf.iRkIrN7i7olpuk5IPkK', 'c.bale@gmail.com', '14252563351', 2, 'T', '11.jpg', 'House #48, Marine Drive', 'Cox\'s Bazar', 'Chittagong', 'Speech Therapy, Epilepsy, Fitness, Health', '$2y$10$verycrazystring1234567');
 
 -- --------------------------------------------------------
 
@@ -181,6 +206,12 @@ ALTER TABLE `blog_categories`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`booking_id`);
+
+--
 -- Indexes for table `chats`
 --
 ALTER TABLE `chats`
@@ -220,6 +251,12 @@ ALTER TABLE `verification`
 --
 ALTER TABLE `blog_categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `chats`

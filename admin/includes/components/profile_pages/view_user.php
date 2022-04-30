@@ -65,11 +65,12 @@ $row = getUserDetailsByID($_SESSION["id"]);
                                 </div>
                             </form>
                             <?php editUser() ?>
-
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>

@@ -200,6 +200,15 @@ function findWhoUserIsChattingWith($id)
     return $res;
 }
 
+function findOneUserWhoUserIsChattingWith($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM users WHERE id IN (SELECT receiver FROM chats WHERE sender='$id') LIMIT 1";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    return mysqli_fetch_assoc($res)["id"];
+}
+
 
 // * GET CATEGORY NAMES
 function getAllCategoriesAsList($type)

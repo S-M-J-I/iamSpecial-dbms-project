@@ -6,7 +6,11 @@ if (!isset($_SESSION["id"])) {
     header("Location: 404.php");
     return;
 } else {
-    $chatWith = getUserByID($_GET["chatWith"]);
+    if (isset($_GET["chatWith"])) {
+        $chatWith = getUserByID($_GET["chatWith"]);
+    } else {
+        $chatWith = "";
+    }
 }
 
 ?>
@@ -333,6 +337,17 @@ if (!isset($_SESSION["id"])) {
                                     <h6 class="m-b-0"><?php echo $chatWith["first_name"] . " " . $chatWith["last_name"] ?></h6>
                                     <small>Last seen: 2 hours ago</small>
                                 </div>
+                            </div>
+                            <div class="col-lg-6 hidden-sm text-right">
+                                <?php
+
+                                if ($_SESSION["role"] == 2) {
+                                    echo "
+                                    <a href='./admin/counselor-bookings.php?confirmWith={$chatWith['id']}' class='btn btn-outline-success'><i class='fa fa-circle-check'></i> Confirm Appointment</a>
+                                    ";
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>

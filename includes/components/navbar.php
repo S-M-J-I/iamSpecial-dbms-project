@@ -36,6 +36,8 @@
                 if (isset($_SESSION["role"])) {
                     if ($_SESSION["role"] == 3) {
                         echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='bookings.php'><strong>Book an appointment</strong></a></li>";
+                    } else {
+                        echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='chat.php'><strong>Chats</strong></a></li>";
                     }
                     echo "
                     <li class='nav-item'><a class='nav-link active' aria-current='page' href='./admin/index.php'><strong>Dashboard</strong></a></li>
