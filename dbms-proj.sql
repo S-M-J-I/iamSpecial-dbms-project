@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2022 at 11:21 AM
+-- Generation Time: May 01, 2022 at 04:12 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -67,7 +67,10 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `booker`, `booked_to`, `booker_type`, `date`, `time`, `agenda`, `is_finished`) VALUES
-(1, 9, 11, 'User', '2022-05-25', '17:30:00', 'Speech Therapy', 'F');
+(1, 9, 11, 'User', '2022-05-25', '17:30:00', 'Speech Therapy', 'T'),
+(2, 5, 11, 'User', '2022-05-02', '09:03:37', 'Just a test', 'T'),
+(3, 9, 11, 'User', '2022-05-28', '16:24:00', 'Again', 'F'),
+(4, 9, 11, 'User', '2022-05-28', '18:30:00', 'Testing', 'T');
 
 -- --------------------------------------------------------
 
@@ -97,7 +100,36 @@ INSERT INTO `chats` (`chat_id`, `sender`, `receiver`, `message`) VALUES
 (21, 9, 11, 'Tomorrow'),
 (22, 9, 11, 'Okay\\\'s'),
 (23, 9, 8, 'Hi Dr Ryan'),
-(24, 9, 11, 'There?');
+(24, 9, 11, 'There?'),
+(25, 9, 11, 'Hello Dr.'),
+(26, 11, 9, 'hi'),
+(27, 11, 9, 'again?'),
+(28, 9, 11, 'Again'),
+(29, 11, 9, 'Okay wait let me confirm'),
+(30, 9, 11, 'okay bb');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fundraisers`
+--
+
+CREATE TABLE `fundraisers` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `total_target` int(11) NOT NULL,
+  `duration` varchar(255) NOT NULL,
+  `complete` enum('T','F') NOT NULL DEFAULT 'F'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fundraisers`
+--
+
+INSERT INTO `fundraisers` (`id`, `title`, `total_target`, `duration`, `complete`) VALUES
+(1, 'New school', 500000, '1 week', 'F'),
+(2, 'New institute', 450000, '3 weeks', 'F'),
+(3, 'Special Day', 50000, '2 weeks', 'F');
 
 -- --------------------------------------------------------
 
@@ -124,6 +156,41 @@ CREATE TABLE `institutions` (
 
 INSERT INTO `institutions` (`ins_id`, `name`, `about`, `street`, `area`, `city`, `state`, `phone`, `type`, `picture`) VALUES
 (1, 'XYZ institute', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'House #89, Shankar', 'Dhanmondi', 'Dhaka', 'Dhaka', '2441139', 'school', 'demo.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transaction_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fundraiser_id` int(11) NOT NULL,
+  `currency` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `email`, `phone`, `amount`, `address`, `status`, `transaction_id`, `fundraiser_id`, `currency`) VALUES
+(20, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 7000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626da86fe230a', 1, 'BDT'),
+(21, 'Mysun Mashira', 'mmashira201011@bscse.uiu.ac.bd', '19303048392', 9000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626daa164b0cc', 1, 'BDT'),
+(22, 'S M Jishanul Islam', 'jishanlion@gmail.com', '01759338652', 600, 'Dhaka', 'Processing', 'SSLCZ_TEST_626daaaa0dd91', 1, 'BDT'),
+(25, 'S M Jishanul Islam', 'jishanlion@gmail.com', '01759338652', 1200, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e37113095e', 1, 'BDT'),
+(26, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 90000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e514f6572c', 1, 'BDT'),
+(27, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 40000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e5176ea5eb', 1, 'BDT'),
+(28, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 5000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e52156a418', 1, 'BDT'),
+(29, 'S M Jishanul Islam', 'jishanlion@gmail.com', '01759338652', 12000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e682753290', 2, 'BDT'),
+(30, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 100000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e78839ed0d', 3, 'BDT'),
+(31, 'Sadia Ahmmed', 'sahmmed201146@bscse.uiu.ac.bd', '01531192391', 250000, 'Dhaka', 'Processing', 'SSLCZ_TEST_626e79021a9f2', 2, 'BDT');
 
 -- --------------------------------------------------------
 
@@ -218,10 +285,22 @@ ALTER TABLE `chats`
   ADD PRIMARY KEY (`chat_id`);
 
 --
+-- Indexes for table `fundraisers`
+--
+ALTER TABLE `fundraisers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `institutions`
 --
 ALTER TABLE `institutions`
   ADD PRIMARY KEY (`ins_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -256,19 +335,31 @@ ALTER TABLE `blog_categories`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `fundraisers`
+--
+ALTER TABLE `fundraisers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `institutions`
 --
 ALTER TABLE `institutions`
   MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `users`

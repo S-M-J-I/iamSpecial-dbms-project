@@ -62,7 +62,7 @@
         <a style="color: white;" class="nav-link" href="">Forum Comments</a>
     </nav>
 </div>
-<a style="color: white;" class="nav-link" href="#">
+<a style="color: white;" class="nav-link" href="counselor-bookings.php">
     <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
     My Bookings
 </a>

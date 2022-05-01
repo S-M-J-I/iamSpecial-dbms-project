@@ -519,6 +519,8 @@ function getAllAppointmentsFromCounselorView()
     $booked_to = $_SESSION["id"];
     $sql = "SELECT \n"
 
+        . "	booking_id,\n"
+
         . "	booker,\n"
 
         . "    (SELECT CONCAT(first_name, \" \", last_name) FROM users WHERE id = booker) as full_name,\n"
@@ -545,7 +547,7 @@ function getAllAppointmentsFromCounselorView()
 
         . "    WHERE b.booked_to = '$booked_to'\n"
 
-        . "    GROUP BY booker";
+        . "    GROUP BY date, time ORDER BY date DESC";
 
     $res = mysqli_query($connection, $sql);
 
@@ -559,9 +561,132 @@ function getAllAppointmentsFromCounselorView()
                 <td>" . date('F j, Y', strtotime($row["date"])) . "</td>
                 <td>" . date('g:i:a', strtotime($row["time"])) . "</td>
                 <td style='text-align: justify; text-justify: inter-word;'>{$row['agenda']}</td>
-                <td>{$row['is_finished']}</td>
+                <td>" . toggleBookingStatus($row["booking_id"], $row["is_finished"]) . "</td>
             </tr>
             ";
         }
+    }
+}
+
+
+// * SEE ALL APPOINTMENTS FROM USER VIEW
+function getAllAppointmentsFromUserView()
+{
+    global $connection;
+    $booker = $_SESSION["id"];
+    $sql = "SELECT \n"
+
+        . "	booked_to,\n"
+
+        . "    (SELECT CONCAT(first_name, \" \", last_name) FROM users WHERE id = booked_to) as full_name,\n"
+
+        . "    (SELECT phone FROM users WHERE id = booker) phone,\n"
+
+        . "    (SELECT area FROM users WHERE id=booked_to) area,\n"
+
+        . "    (SELECT city FROM users WHERE id=booked_to) city,\n"
+
+        . "    (SELECT state FROM users WHERE id=booked_to) state,\n"
+
+        . "    (SELECT speciality FROM users WHERE id=booked_to) speciality,\n"
+
+        . "    date,\n"
+
+        . "    time,\n"
+
+        . "    agenda,\n"
+
+        . "    is_finished\n"
+
+        . "FROM\n"
+
+        . "	bookings b\n"
+
+        . "    INNER JOIN\n"
+
+        . "    users u\n"
+
+        . "    WHERE b.booker = '$booker'\n"
+
+        . "    GROUP BY date, time ORDER BY date DESC";
+
+    $res = mysqli_query($connection, $sql);
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "
+            <tr>
+                <td>{$row['full_name']}</td>
+                <td>{$row['phone']}</td>
+                <td>{$row['area']}, {$row['city']}, {$row['state']}</td>
+                <td>{$row['speciality']}</td>
+                <td>" . date('F j, Y', strtotime($row["date"])) . "</td>
+                <td>" . date('g:i:a', strtotime($row["time"])) . "</td>
+                <td style='text-align: justify; text-justify: inter-word;'>{$row['agenda']}</td>
+                <td>" . toggleDone($row["is_finished"]) . "</td>
+            </tr>
+            ";
+        }
+    }
+}
+
+
+// * toggle bookings done view 
+function toggleDone($status)
+{
+    if ($status == "T") {
+        return "<strong style='color: green;'>Done</strong>";
+    } else {
+        return "<strong style='color: red;'>Not done</strong>";
+    }
+}
+
+
+
+
+
+// * MARK BOOKING AS DONE
+function completeBooking($id)
+{
+    global $connection;
+    $sql = "UPDATE bookings SET is_finished='T' WHERE booking_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+
+    $res = $query->execute() or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: counselor-bookings.php");
+    }
+}
+
+// * TOGGLE BOOKINGS DONE
+function toggleBookingStatus($id, $status)
+{
+    if ($_SESSION["role"] == 2) {
+        if ($status == "F") {
+            return "<a href='counselor-bookings.php?id=$id&status=T'><strong>Mark as done</strong></a>";
+        } else {
+            return "<strong style='color: green;'>Done</strong>";
+        }
+    }
+}
+
+
+
+// * ADD FUNDRAISER
+function addFundraiser()
+{
+    global $connection;
+    if (isset($_POST["add"])) {
+        $title = $_POST["title"];
+        $total_target = $_POST["total_target"];
+        $duration = $_POST["duration"];
+        $sql = "INSERT INTO fundraisers(title, total_target, duration) VALUES(?,?,?)";
+        $query = $connection->prepare($sql);
+        $query->bind_param("sss", $title, $total_target, $duration);
+        $query->execute() or die("Failed");
+
+        header("Location: ../donate.php");
     }
 }

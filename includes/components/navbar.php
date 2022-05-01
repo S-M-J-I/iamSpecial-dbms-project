@@ -32,6 +32,7 @@
                         <a class="dropdown-item" href="#">Contact</a>
                     </div>
                 </li>
+                <li class='nav-item'><a class='nav-link active' aria-current='page' href='donate.php'><strong>Donate❤️</strong></a></li>
                 <?php
                 if (isset($_SESSION["role"])) {
                     if ($_SESSION["role"] == 3) {

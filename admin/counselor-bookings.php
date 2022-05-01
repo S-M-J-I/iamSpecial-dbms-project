@@ -20,18 +20,28 @@
                     <div class="card-body">
                         <?php
 
-                        if (isset($_GET["confirmWith"])) {
-                            $confirmWith = $_GET["confirmWith"];
+                        if ($_SESSION["role"] == 3) {
+                            include "includes/components/user-bookings.php";
                         } else {
-                            $confirmWith = "";
+                            if (isset($_GET["confirmWith"])) {
+                                $confirmWith = $_GET["confirmWith"];
+                            } else {
+                                $confirmWith = "";
+                            }
+
+                            if ($confirmWith != "") {
+                                include "includes/components/bookings.php";
+                            } else {
+                                // * render all appointments here
+                                include "includes/components/all-bookings.php";
+                            }
+
+                            if (isset($_GET["status"])) {
+                                completeBooking($_GET["id"]);
+                            }
                         }
 
-                        if ($confirmWith != "") {
-                            include "includes/components/bookings.php";
-                        } else {
-                            // * render all appointments here
-                            include "includes/components/all-bookings.php";
-                        }
+
 
 
                         ?>

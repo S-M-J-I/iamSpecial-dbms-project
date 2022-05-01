@@ -221,3 +221,25 @@ function getAllCategoriesAsList($type)
         getDropDownVersion($res, $type);
     }
 }
+
+// * GET ALL DONATIONS
+function getDonations()
+{
+    global $connection;
+    $sql = "SELECT * FROM fundraisers";
+    $res = mysqli_query($connection, $sql) or die("Failed");
+
+    return $res;
+}
+
+// * GET ALL AMOUNT RAISED IN A DURATION
+function getSumOfDonations($id)
+{
+    global $connection;
+    $sql = "SELECT SUM(amount) total FROM orders WHERE fundraiser_id='$id'";
+    $res = mysqli_query($connection, $sql) or die("Failed");
+
+    if ($res) {
+        return mysqli_fetch_assoc($res)["total"];
+    }
+}

@@ -7,7 +7,7 @@ if (isset($_SESSION["id"])) {
     $senderID = mysqli_real_escape_string($connection, $_POST["sender"]);
     $receiverID = mysqli_real_escape_string($connection, $_POST["receiver"]);
 
-    $sql = "SELECT * FROM chats WHERE (sender='$senderID' AND receiver='$receiverID') OR (sender='$receiverID' AND receiver='$senderID')";
+    $sql = "SELECT * FROM chats WHERE (sender='$senderID' AND receiver='$receiverID') OR (sender='$receiverID' AND receiver='$senderID') ORDER BY chat_id DESC";
     $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
 
     if (mysqli_num_rows($res) > 0) {

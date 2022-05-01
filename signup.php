@@ -15,19 +15,19 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                 </div>
-                                <input name="first_name" class="form-control" placeholder="First name" type="text">
+                                <input name="first_name" class="form-control" placeholder="First name" type="text" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                 </div>
-                                <input name="last_name" class="form-control" placeholder="Last name" type="text">
+                                <input name="last_name" class="form-control" placeholder="Last name" type="text" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                 </div>
-                                <input name="username" class="form-control" placeholder="Username" type="text">
+                                <input name="username" class="form-control" placeholder="Username" type="text" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
@@ -43,19 +43,19 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                                 </div>
-                                <input name="email" class="form-control" placeholder="Email address" type="email">
+                                <input name="email" class="form-control" placeholder="Email address" type="email" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input name="password" class="form-control" placeholder="Create password" type="password">
+                                <input name="password" class="form-control" placeholder="Create password" type="password" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input name="repeat_password" class="form-control" placeholder="Repeat password" type="password">
+                                <input name="repeat_password" class="form-control" placeholder="Repeat password" type="password" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">

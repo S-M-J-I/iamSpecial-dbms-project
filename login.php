@@ -19,13 +19,19 @@ include "includes/components/header.php" ?>
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                                 </div>
-                                <input name="username" class="form-control" placeholder="Enter username" type="text">
+                                <input name="username" class="form-control" placeholder="Enter username" type="text" required>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    Your username is required.
+                                </div>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input name="password" class="form-control" placeholder="Enter password" type="password">
+                                <input name="password" class="form-control" placeholder="Enter password" type="password" required>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    Your password is required.
+                                </div>
                             </div>
                             <br>
                             <br>
