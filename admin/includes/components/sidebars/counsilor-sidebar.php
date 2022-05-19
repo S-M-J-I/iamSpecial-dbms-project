@@ -28,7 +28,7 @@
     ?>
 
     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-        <a style="color: white;" class="nav-link" href="">Delete Profile</a>
+        <a style="color: white;" class="nav-link" href="delete-profile.php">Delete Profile</a>
     </nav>
 </div>
 
@@ -36,19 +36,10 @@
 
 <!-- USER EXPERIENCE CONTROLS -->
 <div class="sb-sidenav-menu-heading">My Interactions</div>
-<a style="color: white;" class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayout" aria-expanded="false" aria-controls="collapseLayouts">
+<a style="color: white;" class="nav-link collapsed" href="posts.php">
     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
     My Posts
-    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 </a>
-<div class="collapse" id="collapseLayout" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
-    <nav class="sb-sidenav-menu-nested nav">
-        <a style="color: white;" class="nav-link" href="layout-sidenav-light.php">Create a Post</a>
-    </nav>
-    <nav class="sb-sidenav-menu-nested nav">
-        <a style="color: white;" class="nav-link" href="layout-sidenav-light.php">View All Posts</a>
-    </nav>
-</div>
 <a style="color: white;" class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMyPosts" aria-expanded="false" aria-controls="collapsePages">
     <div class="sb-nav-link-icon"><i class="fas fa-solid fa-comment"></i></div>
     Comments

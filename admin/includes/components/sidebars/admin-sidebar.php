@@ -16,7 +16,10 @@
         <a class="nav-link" href="view_admin.php">Admit Admin</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="categories.php">Categories</a>
+        <a class="nav-link" href="categories.php">Blog Categories</a>
+    </nav>
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link" href="forum-categories.php">Forum Categories</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="institutions.php">Institution</a>
@@ -46,30 +49,13 @@
 </a>
 <div class="collapse" id="collapseLayout" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">Create a Post</a>
+        <a class="nav-link" href="posts.php">Create a Post</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="layout-sidenav-light.php">Create a Forum Discussion</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="layout-sidenav-light.php">Create a Notification</a>
-    </nav>
-</div>
-
-<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#complaints" aria-expanded="false" aria-controls="collapseLayouts">
-    <div class="sb-nav-link-icon"><i class="fas fa-ban"></i></div>
-    Complaints
-    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-</a>
-<div class="collapse" id="complaints" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
-    <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">About users</a>
-    </nav>
-    <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">About counselors</a>
-    </nav>
-    <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="layout-sidenav-light.php">About institutions</a>
     </nav>
 </div>
 
@@ -89,3 +75,7 @@
         <a class="nav-link" href="verification.php?type=counselor">Counselors</a>
     </nav>
 </div>
+<a class="nav-link" href="approve-fundraiser.php">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Approve Fundraisers
+</a>

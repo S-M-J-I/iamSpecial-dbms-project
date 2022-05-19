@@ -10,11 +10,11 @@ if (!defined('API_DOMAIN_URL')) {
 }
 
 if (!defined('STORE_ID')) {
-    define('STORE_ID', 'iamsp626d0d800a2d5');
+    define('STORE_ID', "iamsp626d0d800a2d5");
 }
 
 if (!defined('STORE_PASSWORD')) {
-    define('STORE_PASSWORD', 'iamsp626d0d800a2d5@ssl');
+    define('STORE_PASSWORD', "iamsp626d0d800a2d5@ssl");
 }
 
 if (!defined('IS_LOCALHOST')) {

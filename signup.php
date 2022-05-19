@@ -5,7 +5,7 @@
 <section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-repeat: no-repeat; background-image: url('images/resources/log-in.png');">
     <div class="container-fluid">
         <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
-            <div class="col-12 col-md-4 col-lg-3   h-50 ">
+            <div class="col-12 col-md-4 col-lg-   h-50 ">
                 <div class="card shadow">
                     <div class="card-body mx-auto">
                         <h4 class="card-title mt-3 text-center">Create Account</h4>
@@ -33,7 +33,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                 </div>
-                                <select name="role">
+                                <select name="role" required>
                                     <option selected disabled>Registering as</option>
                                     <option value="2">Counselor</option>
                                     <option value="3">User</option>
@@ -44,6 +44,12 @@
                                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                                 </div>
                                 <input name="email" class="form-control" placeholder="Email address" type="email" required>
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                                </div>
+                                <input name="phone" class="form-control" placeholder="Phone number" type="text" required>
                             </div>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
@@ -73,7 +79,11 @@
                                 <a href="login.php">Log In</a>
                             </p>
                         </form>
-                        <?php signUp() ?>
+                        <?php
+
+                        signUp();
+
+                        ?>
                     </div>
                 </div>
             </div>

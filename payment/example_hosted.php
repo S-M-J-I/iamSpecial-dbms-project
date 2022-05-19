@@ -128,10 +128,10 @@ if ($res) {
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state">State</label>
-                            <select class="custom-select d-block w-100" id="state" required>
+                            <select class="custom-select d-block w-100" id="state">
                                 <?php
 
-                                if ($_GET["id"] == -1) {
+                                if (!isset($_SESSION["id"])) {
                                     echo "
                                     <option value='Dhaka'>Dhaka</option>
                                     <option value='Chittagong'>Chittagong</option>

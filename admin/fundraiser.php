@@ -19,21 +19,28 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <strong>Set Title</strong> </span>
                                     </div>
-                                    <input name="title" class="form-control" placeholder="" type="text">
+                                    <input name="title" class="form-control" placeholder="" required type="text">
+                                </div>
+                                <br>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <strong>Set Description</strong> </span>
+                                    </div>
+                                    <input name="description" class="form-control" placeholder="" required type="text">
                                 </div>
                                 <br>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <strong>Target Amount</strong> </span>
                                     </div>
-                                    <input name="total_target" class="form-control" placeholder="" type="text">
+                                    <input name="total_target" class="form-control" placeholder="" required type="text">
                                 </div>
                                 <br>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <strong>Duration</strong> </span>
                                     </div>
-                                    <input name="duration" class="form-control" placeholder="" type="text">
+                                    <input name="duration" class="form-control" placeholder="" required type="text">
                                 </div>
                                 <br>
                                 <div class="form-group">

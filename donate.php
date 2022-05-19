@@ -30,6 +30,7 @@ if (!isset($_SESSION["id"])) {
                     <div class='row'>
                         <div class='col-xl-6 col-md-4'>
                             <p><h4><strong>{$row['title']}</strong></h4></p>
+                            <p>{$row['description']}</p>
                             <hr>
                             <p><strong>Target: </strong>" . number_format($row['total_target']) . " BDT</p>
                             <p><strong>Raised: </strong>" . number_format(getSumOfDonations($row['id'])) . " BDT</p>

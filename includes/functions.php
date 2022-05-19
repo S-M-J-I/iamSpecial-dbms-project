@@ -1,6 +1,6 @@
 <?php
 include_once "crypt.php";
-
+include_once "db.php";
 
 
 function printPosts()
@@ -52,6 +52,17 @@ function isVerified($id)
 }
 
 
+function getImageByID($id)
+{
+    global $connection;
+    $query = "SELECT avatar FROM users";
+    $res = mysqli_query($connection, $query) or die("Query Failed" . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res)["avatar"];
+    }
+}
+
 function getRoleByID($id)
 {
     global $connection;
@@ -63,11 +74,22 @@ function getRoleByID($id)
     }
 }
 
+function getRoleNameByID($id)
+{
+    global $connection;
+    $query = "SELECT role FROM user_type WHERE type_id='$id'";
+    $res = mysqli_query($connection, $query) or die("Query Failed" . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res)["role"];
+    }
+}
+
 // TODO: SET PROFILE PICTURE DURING SIGUP SESSION
 // * SIGNUP USER
 function signUp()
 {
-    global $connection;
+    global $connection, $mail;
     // * check if button was clicked or not
     if (isset($_POST["submit"])) {
 
@@ -77,6 +99,7 @@ function signUp()
         $username = $_POST["username"];
         $role = $_POST["role"];
         $email = $_POST["email"];
+        $phone = $_POST["phone"];
         $password = $_POST["password"];
         $repeatPassword = $_POST["repeat_password"];
 
@@ -85,6 +108,7 @@ function signUp()
         $last_name = mysqli_real_escape_string($connection, $last_name);
         $username = mysqli_real_escape_string($connection, $username);
         $email = mysqli_real_escape_string($connection, $email);
+        $phone = mysqli_real_escape_string($connection, $phone);
         $password = mysqli_real_escape_string($connection, $password);
         $repeatPassword = mysqli_real_escape_string($connection, $repeatPassword);
 
@@ -98,15 +122,14 @@ function signUp()
         $password = hashPassword($password);
 
         // * insert the values using prepare statement
-        $sql = "INSERT INTO users(`first_name`, `last_name`, `username`, `password`, `email`, `role`) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO users(`first_name`, `last_name`, `username`, `password`, `email`, `phone`, `role`) VALUES (?,?,?,?,?,?,?)";
         $query = $connection->prepare($sql);
-        $query->bind_param("sssssi", $first_name, $last_name, $username, $password, $email, $role);
+        $query->bind_param("ssssssi", $first_name, $last_name, $username, $password, $email, $phone, $role);
         $res = $query->execute() or die("Failed" . mysqli_error($connection));
 
         // * if query is successfully executed
         if ($res) {
             // * redirect to the log in page
-
             $id = getLastEnteredID();
             $temp = explode(".", $_FILES["avatar"]["name"]);
             $avatar = $id . '.' . end($temp);
@@ -117,56 +140,77 @@ function signUp()
             $query->bind_param("si", $avatar, $id);
             $res = $query->execute() or die("Query Failed" . mysqli_error($connection));
 
-            header("Location: login.php");
+            $mail->Subject = "Welcome to iamspecial.com!";
+            $mail->isHTML(true);
+            $mail->Body = "
+            <h1 style='text-align: center;'>Welcome, $first_name $last_name!</h1>
+            <hr />
+            <p style='text-align: justify;'>We are very pleased that you have joined iamspecial.com as a <strong>" . getRoleNameByID($role) . "</strong>! First of all, we would urge you to login and verify yourself!</p>
+            <p style='text-align: justify;'>We hope that iamspecial.com will provide you with the right amount of information, help, and resources to help your special loved one.</p>
+            ";
+            $mail->addAddress($email);
+            $mail->send();
+
+            loginUser($username, $repeatPassword);
         }
     }
 }
 
 // * LOGIN USER
-function loginUser()
+function loginUser($username, $password)
 {
     global $connection;
-    if (isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+    $password = hashPassword($password);
 
-        $username = mysqli_real_escape_string($connection, $username);
-        $password = mysqli_real_escape_string($connection, $password);
-        $password = hashPassword($password);
+    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $res = mysqli_query($connection, $query) or die("Query Failed" . mysqli_error($connection));
 
-        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $res = mysqli_query($connection, $query) or die("Query Failed" . mysqli_error($connection));
+    if ($res) {
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['first_name'] = $row['first_name'];
+                $_SESSION['last_name'] = $row['last_name'];
+                $_SESSION['role'] = $row['role'];
+                $_SESSION['avatar'] = $row['avatar'];
 
-        if ($res) {
-            if (mysqli_num_rows($res) > 0) {
-                while ($row = mysqli_fetch_assoc($res)) {
-                    $_SESSION['id'] = $row['id'];
-                    $_SESSION['username'] = $row['username'];
-                    $_SESSION['first_name'] = $row['first_name'];
-                    $_SESSION['last_name'] = $row['last_name'];
-                    $_SESSION['role'] = $row['role'];
-                    $_SESSION['avatar'] = $row['avatar'];
-
-                    if (isset($_SESSION['valid'])) {
-                        unset($_SESSION['valid']);
-                    }
-
-                    header("Location: ./admin");
+                if (isset($_SESSION['valid'])) {
+                    unset($_SESSION['valid']);
                 }
-            } else {
-                echo "<p style='color: red;'>Invalid username or password</p>";
+
+                header("Location: ./admin");
             }
+        } else {
+            echo "<p style='color: red;'>Invalid username or password</p>";
         }
     }
 }
 
 
 // * HELPER TO PRINT RESULTS AS DROPDOWNLISTS
-function getDropDownVersion($res, $type)
+function getCardsVersion($res)
 {
     while ($row = mysqli_fetch_assoc($res)) {
         echo "
-        <a class='dropdown-item' href='{$type}.php'>{$row['name']}</a>
+        <div class='col-lg-6 col-xxl-4 mb-5'>
+            <div class='card bg-light border-0 h-100'>
+                <a style='text-decoration: none;color: black;' href='blogs.php?category={$row['cat_id']}'>
+                    <div class='card-body text-center p-4 p-lg-5 pt-0 pt-lg-0'>
+                        <br>
+                        <img width='300px' src='./images/blog-categories/{$row['thumbnail']}' />
+                        <br>
+                        <hr>
+                        <br>
+                        <h2 class='fs-4 fw-bold'>{$row['name']}</h2>
+                        <p class='mb-0'>{$row['description']}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
         ";
     }
 }
@@ -194,7 +238,7 @@ function getAvatarByID($id)
 function findWhoUserIsChattingWith($id)
 {
     global $connection;
-    $sql = "SELECT * FROM users WHERE id IN (SELECT receiver FROM chats WHERE sender='$id')";
+    $sql = "SELECT * FROM users WHERE id IN (SELECT receiver FROM chats WHERE sender='$id' OR receiver IN (SELECT sender FROM chats WHERE receiver='$id'))";
     $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
 
     return $res;
@@ -206,19 +250,30 @@ function findOneUserWhoUserIsChattingWith($id)
     $sql = "SELECT * FROM users WHERE id IN (SELECT receiver FROM chats WHERE sender='$id') LIMIT 1";
     $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
 
-    return mysqli_fetch_assoc($res)["id"];
+    return mysqli_fetch_assoc($res);
 }
 
 
 // * GET CATEGORY NAMES
-function getAllCategoriesAsList($type)
+function getAllCategoriesAsList()
 {
     global $connection;
-    $query = "SELECT name FROM blog_categories";
+    $query = "SELECT * FROM blog_categories ORDER BY name";
     $res = mysqli_query($connection, $query) or die("Failed" . mysqli_error($connection));
 
     if ($res) {
-        getDropDownVersion($res, $type);
+        getCardsVersion($res);
+    }
+}
+
+function getCategoryByID($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM blog_categories WHERE cat_id='$id'";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res);
     }
 }
 
@@ -226,7 +281,7 @@ function getAllCategoriesAsList($type)
 function getDonations()
 {
     global $connection;
-    $sql = "SELECT * FROM fundraisers";
+    $sql = "SELECT * FROM fundraisers WHERE approved='T'";
     $res = mysqli_query($connection, $sql) or die("Failed");
 
     return $res;
@@ -242,4 +297,119 @@ function getSumOfDonations($id)
     if ($res) {
         return mysqli_fetch_assoc($res)["total"];
     }
+}
+
+
+
+// * get a blog by id
+function getBlog($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM blogs WHERE id='$id'";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res);
+    }
+}
+
+
+
+// * get blogs by category id
+function getBlogsByCategory($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM blogs WHERE category='$id' AND draft='F'";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return $res;
+    }
+}
+
+
+function getAllCommentsByPostID($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM comments WHERE commented_to='$id' ORDER BY comment_id DESC";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        return $query;
+    }
+}
+
+function getPostsLikeThese($str, $id)
+{
+    global $connection;
+    $sql = "SELECT * FROM blogs WHERE tags LIKE '%$str%' AND id!='$id' LIMIT 6";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return $res;
+    }
+}
+
+
+function getAllForumCategoriesAsOptions()
+{
+    global $connection;
+    $sql = "SELECT * FROM forum_categories";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        while ($row = mysqli_fetch_assoc($query)) {
+            echo "
+            <option value='{$row['forum_id']}'>{$row['name']}</option>
+            ";
+        }
+    }
+}
+
+
+function getAllForumCategoriesAsCards()
+{
+    global $connection;
+    $sql = "SELECT * FROM forum_categories";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        while ($row = mysqli_fetch_assoc($query)) {
+            echo "
+            <div class='col-lg-6 col-xxl-4 mb-5'>
+                <div class='card bg-light border-0 h-100'>
+                    <a style='text-decoration: none;color: black;' href='forums.php?category={$row['forum_id']}'>
+                        <div class='card-body text-center p-4 p-lg-5 pt-0 pt-lg-0'>
+                            <div class='feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4'><i class='bi bi-collection'></i></div>
+                            <h2 class='fs-4 fw-bold'>{$row['name']}</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            ";
+        }
+    }
+}
+
+
+function getForumPostsByID($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM forums WHERE category='$id'";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        return $query;
+    }
+}
+
+
+function getForumTags($row)
+{
+    $tags = explode(",", $row["tags"]);
+    $build = "";
+    foreach ($tags as $key => $value) {
+        $build .= "<a class='text-black mr-2' href='forums.php?search='$value'>#$value</a>";
+    }
+    return $build;
 }

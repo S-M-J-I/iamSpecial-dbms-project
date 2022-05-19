@@ -7,7 +7,7 @@ form.onsubmit = (e) => {
     e.preventDefault()
 }
 
-sendBtn.onclick = () => {
+sendChat = () => {
     let xhr = new XMLHttpRequest()
     xhr.open("POST", "includes/insert-chat.php", true)
     xhr.onload = () => {
@@ -19,6 +19,18 @@ sendBtn.onclick = () => {
 
     let formData = new FormData(form)
     xhr.send(formData)
+}
+
+
+document.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault()
+        document.getElementById("send").click()
+    }
+});
+
+sendBtn.onclick = () => {
+    sendChat()
 }
 
 // check for new chats after 500ms

@@ -90,7 +90,7 @@ include "includes/components/header.php" ?>
                                     <div class='card-body'>
                                         <div class='row'>
                                             <div class='col-xl-3 col-md-6'>
-                                                <img src='images/avatars/{$row['avatar']}' width=250px/>
+                                                <img src='images/avatars/{$row['avatar']}?1234324' width=250px/>
                                             </div>
                                             <div class='col-xl-6 col-md-4'>
                                                 <p><h4><strong>Dr. {$row['first_name']} {$row['last_name']}</strong></h4></p>

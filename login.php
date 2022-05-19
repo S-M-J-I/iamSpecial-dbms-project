@@ -45,7 +45,15 @@ include "includes/components/header.php" ?>
                                 <br>
                                 <a href="signup.php">Sign Up</a>
                             </p>
-                            <?php loginUser() ?>
+                            <?php
+
+                            if (isset($_POST["login"])) {
+                                $username = $_POST['username'];
+                                $password = $_POST['password'];
+                                loginUser($username, $password);
+                            }
+
+                            ?>
                             <br>
                             <br>
                             <br>

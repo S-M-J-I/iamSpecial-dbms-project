@@ -2,6 +2,28 @@
 <?php session_start() ?>
 <?php include_once "includes/db.php" ?>
 <?php include_once "includes/functions.php" ?>
+<?php include "config/mail.php" ?>
+<?php require "includes/phpmailer/Exception.php" ?>
+<?php require "includes/phpmailer/PHPMailer.php" ?>
+<?php require "includes/phpmailer/SMTP.php" ?>
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer();
+$mail->isSMTP();
+$mail->Host = "smtp.gmail.com";
+$mail->SMTPAuth = "true";
+$mail->SMTPSecure = "tls";
+$mail->Port = "587";
+$mail->Username = $username;
+$mail->Password = $password;
+$mail->setFrom($username);
+$mail->isHTML(true);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

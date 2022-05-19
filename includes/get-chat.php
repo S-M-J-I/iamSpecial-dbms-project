@@ -2,6 +2,8 @@
 include "functions.php";
 
 session_start();
+
+
 if (isset($_SESSION["id"])) {
     $output = "";
     $senderID = mysqli_real_escape_string($connection, $_POST["sender"]);
@@ -17,18 +19,22 @@ if (isset($_SESSION["id"])) {
                 $output .= "
                 <li class='clearfix'>
                     <div class='message-data text-right'>
-                        <img src='images/avatars/" . getAvatarByID($senderID) . "' alt='avatar'>
+                        <img src='images/avatars/" . getAvatarByID($senderID) . "?1234324' alt='avatar'>
                     </div>
-                    <div class='message other-message float-right'> {$row['message']} </div>
+                    <div class='message other-message float-right'>
+                     <strong>{$row['message']}</strong> <br>
+                     <p style='font-size: 12px;'>" . date_format(date_create($row["date_time"]), "F j, Y - h:i a") . "</p>
+                     </div>
                 </li>
                 ";
             } else {
                 $output .= "
                 <li class='clearfix'>
                     <div class='message-data'>
-                        <img src='images/avatars/" . getAvatarByID($receiverID) . "' alt='avatar'>
+                        <img src='images/avatars/" . getAvatarByID($receiverID) . "?1234324' alt='avatar'>
                     </div>
-                    <div class='message my-message'>{$row['message']} </div>
+                    <div class='message my-message'><strong>{$row['message']}</strong> <br>
+                    <p style='font-size: 12px;'>" . date_format(date_create($row["date_time"]), "F j, Y - h:i a") . "</p> </div>
                 </li>
                 ";
             }

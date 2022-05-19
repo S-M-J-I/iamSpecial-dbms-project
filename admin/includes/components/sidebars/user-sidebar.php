@@ -27,7 +27,7 @@
 
     ?>
     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-        <a style="color: white;" class="nav-link" href="">Delete Profile</a>
+        <a style="color: white;" class="nav-link" href="delete-profile.php">Delete Profile</a>
     </nav>
 </div>
 
@@ -61,4 +61,8 @@
 <a style="color: white;" class="nav-link" href="counselor-bookings.php">
     <div class="sb-nav-link-icon"><i class="fas fa-duotone fa-book-medical"></i></div>
     Counselor Bookings
+</a>
+<a style="color: white;" class="nav-link" href="request-fundraiser.php">
+    <div class="sb-nav-link-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+    Request for Fundraiser
 </a>

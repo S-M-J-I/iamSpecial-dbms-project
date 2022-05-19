@@ -5,22 +5,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link active" href="forum-lists.php">
                         Forums
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="forums.php">Category Here</a>
-                        <a class="dropdown-item" href="#">Category Here</a>
-                        <a class="dropdown-item" href="#">Category Here</a>
-                    </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link active" href="blog-lists.php">
                         Blogs
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <?php getAllCategoriesAsList("blogs") ?>
-                    </div>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -28,8 +20,8 @@
                         About
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">About Us</a>
-                        <a class="dropdown-item" href="#">Contact</a>
+                        <a class="dropdown-item" href="about.php">About Us</a>
+                        <a class="dropdown-item" href="contact.php">Contact</a>
                     </div>
                 </li>
                 <li class='nav-item'><a class='nav-link active' aria-current='page' href='donate.php'><strong>Donate❤️</strong></a></li>
@@ -38,7 +30,7 @@
                     if ($_SESSION["role"] == 3) {
                         echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='bookings.php'><strong>Book an appointment</strong></a></li>";
                     } else {
-                        echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='chat.php'><strong>Chats</strong></a></li>";
+                        echo "<li class='nav-item'><a class='btn btn-primary' style='background-color: #43DBAD;border:none;' aria-current='page' href='chat.php'><strong>Messages</strong></a></li>";
                     }
                     echo "
                     <li class='nav-item'><a class='nav-link active' aria-current='page' href='./admin/index.php'><strong>Dashboard</strong></a></li>

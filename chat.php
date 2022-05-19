@@ -1,5 +1,6 @@
 <?php $title = "Chats" ?>
 <?php include "includes/components/header.php" ?>
+<?php include "includes/components/navbar.php" ?>
 <?php
 
 if (!isset($_SESSION["id"])) {
@@ -9,7 +10,9 @@ if (!isset($_SESSION["id"])) {
     if (isset($_GET["chatWith"])) {
         $chatWith = getUserByID($_GET["chatWith"]);
     } else {
-        $chatWith = "";
+        $chatWith = findOneUserWhoUserIsChattingWith($_SESSION["id"]);
+        $chatWith = $chatWith["id"];
+        header("Location: chat.php?chatWith=$chatWith");
     }
 }
 
@@ -285,45 +288,31 @@ if (!isset($_SESSION["id"])) {
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+
+<?php
+
+function toggleActive($id)
+{
+    if (isset($_GET["chatWith"])) {
+        if ($_GET["chatWith"] == $id) {
+            return "<li class='clearfix active'>";
+        } else {
+            return "<li class='clearfix'>";
+        }
+    } else {
+        return "<li class='clearfix'>";
+    }
+}
+
+?>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-lg-12">
-            <div class="card chat-app">
+            <div class="card chat-app" style="height: auto;">
                 <div id="plist" class="people-list">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search...">
-                    </div>
                     <ul class="list-unstyled chat-list mt-2 mb-0">
-                        <?php
-
-                        $chats = findWhoUserIsChattingWith($_SESSION["id"]);
-
-                        while ($row = mysqli_fetch_assoc($chats)) {
-                            echo "
-                            <a style='text-decoration: none;' href='chat.php?chatWith={$row['id']}'>
-                            <li class='clearfix'>
-                                <img src='images/avatars/" . $row["avatar"] . "' alt='avatar'>
-                                <div class='about'>
-                                    <div class='name'>{$row['first_name']} {$row['last_name']}</div>
-                                    <div class='status'> <i class='fa fa-circle offline'></i> left 7 mins ago </div>
-                                </div>
-                            </li>
-                            </a>
-                            ";
-                        }
-
-                        ?>
-                        <li class="clearfix active">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                            <div class="about">
-                                <div class="name">Aiden Chavez</div>
-                                <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                            </div>
-                        </li>
-
+                        <?php include_once "includes/components/chat-users.php" ?>
                     </ul>
                 </div>
                 <div class="chat">
@@ -331,11 +320,10 @@ if (!isset($_SESSION["id"])) {
                         <div class="row">
                             <div class="col-lg-6">
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                    <img src="images/avatars/<?php echo $chatWith["avatar"] ?>" alt="avatar">
+                                    <img src="images/avatars/<?php echo $chatWith["avatar"] ?>?1234324" alt="avatar">
                                 </a>
                                 <div class="chat-about">
                                     <h6 class="m-b-0"><?php echo $chatWith["first_name"] . " " . $chatWith["last_name"] ?></h6>
-                                    <small>Last seen: 2 hours ago</small>
                                 </div>
                             </div>
                             <div class="col-lg-6 hidden-sm text-right">
@@ -359,12 +347,12 @@ if (!isset($_SESSION["id"])) {
                     <div class="chat-message clearfix">
                         <form action="" id="typing-area">
                             <div class="input-group mb-0">
-                                <div style="cursor: pointer;" id="send" class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-send"></i></span>
-                                </div>
                                 <input name="sender" style="display: none;" type="text" value="<?php echo $_SESSION["id"]  ?>">
                                 <input name="receiver" style="display: none;" type="text" value="<?php echo $chatWith["id"]  ?>">
                                 <input id="message" name="message" type="text" class="form-control" placeholder="Enter text here...">
+                                <div style="cursor: pointer;" id="send" class="input-group-prepend">
+                                    <span class="input-group-text">Send <i class="fa fa-send"></i></span>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -374,3 +362,5 @@ if (!isset($_SESSION["id"])) {
     </div>
 </div>
 <script src="js/chat.js"></script>
+<!-- <script src="js/chat-users.js"></script> -->
+<?php include "includes/components/footer.php" ?>
