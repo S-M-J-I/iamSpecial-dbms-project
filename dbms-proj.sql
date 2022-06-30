@@ -32,7 +32,7 @@ CREATE TABLE `blogs` (
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `category` int(11) NOT NULL,
-  `image` text NOT NULL DEFAULT 'https://dummyimage.com/900x400/ced4da/6c757d.jpg',
+  `image` text NOT NULL,
   `date` date NOT NULL,
   `author` int(11) NOT NULL,
   `tags` varchar(255) NOT NULL,
@@ -254,7 +254,7 @@ CREATE TABLE `institutions` (
   `state` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `type` varchar(20) NOT NULL,
-  `picture` text NOT NULL DEFAULT 'demo.jpg'
+  `picture` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -327,7 +327,7 @@ CREATE TABLE `users` (
   `phone` varchar(255) NOT NULL DEFAULT '12345678911',
   `role` int(11) DEFAULT 3,
   `verified` enum('T','F') DEFAULT 'F',
-  `avatar` text DEFAULT 'demo.jpg',
+  `avatar` text,
   `area` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,

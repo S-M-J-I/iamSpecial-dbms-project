@@ -1,8 +1,8 @@
 <?php
-$db['db_host'] = "localhost";
-$db['db_user'] = "root";
-$db['db_pass'] = "";
-$db['db_name'] = "dbms-proj";
+$db['db_host'] = "sql6.freemysqlhosting.net";
+$db['db_user'] = "sql6503144";
+$db['db_pass'] = "qErrULbMKs";
+$db['db_name'] = "dbms-qErrULbMKs";
 
 foreach ($db as $key => $value) {
     define(strtoupper($key), $value);
