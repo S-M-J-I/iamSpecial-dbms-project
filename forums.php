@@ -80,15 +80,15 @@ $forums = getForumPostsByID($_GET["category"]);
                         <div class='row align-items-center'>
                             <div class='col-md-8 mb-3 mb-sm-0'>
                                 <h5>
-                                    <a href='#' class='text-primary'>{$row['title']}</a>
+                                    <a href='forum-post.php?id={$row['id']}' class='text-primary'>{$row['title']}</a>
                                 </h5>
-                                <p class='text-sm'><span class='op-6'>Posted</span> <a class='text-black' href='#'>" . date('F d, Y', strtotime($row["date"])) . "</a> <span class='op-6'> by</span> <a class='text-black' href='#'>{$user['username']}</a></p>
+                                <p class='text-sm'><span class='op-6'>Posted</span> " . date('F d, Y', strtotime($row["date"])) . " <span class='op-6'> by</span> <a class='text-black' href='#'>{$user['username']}</a></p>
                                 <div class='text-sm op-5'> " . getForumTags($row) . " </div>
                             </div>
                             <div class='col-md-4 op-7'>
                                 <div class='row text-center op-7'>
-                                    <div class='col px-1'> <i class='ion-connection-bars icon-1x'></i> <span class='d-block text-sm'>141 Votes</span> </div>
-                                    <div class='col px-1'> <i class='ion-ios-chatboxes-outline icon-1x'></i> <span class='d-block text-sm'>122 Replys</span> </div>
+                                    <div class='col px-1'> <i class='ion-connection-bars icon-1x'></i> <span class='d-block text-sm'>{$row["upvotes"]} Upvotes</span> </div>
+                                    <div class='col px-1'> <i class='ion-ios-chatboxes-outline icon-1x'></i> <span class='d-block text-sm'>{$row["comments"]} Replys</span> </div>
                                 </div>
                             </div>
                         </div>

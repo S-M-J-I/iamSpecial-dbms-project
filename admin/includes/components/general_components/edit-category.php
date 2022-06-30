@@ -3,7 +3,7 @@
 <div class="col-lg-6 card-body">
 
     <!-- Add Category form -->
-    <form action="categories.php" method="POST" enctype="multipart/form-data">
+    <form action="categories.php?action=edit&id=<?= $_GET["id"] ?>" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="cat_title">Category Name:</label>
         </div>

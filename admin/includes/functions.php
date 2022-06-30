@@ -784,6 +784,103 @@ function getAllAppointmentsFromCounselorView()
 }
 
 
+// * SEE ALL APPOINTMENTS FROM COUNSELOR VIEW
+function getAllRequestedAppointmentsFromCounselorView()
+{
+    global $connection;
+    $booked_to = $_SESSION["id"];
+    $sql = "SELECT \n"
+
+        . "	booking_id,\n"
+
+        . "	booker,\n"
+
+        . "    (SELECT CONCAT(first_name, \" \", last_name) FROM users WHERE id = booker) as full_name,\n"
+
+        . "    (SELECT phone FROM users WHERE id = booker) phone,\n"
+
+        . "    booker_type,\n"
+
+        . "    date,\n"
+
+        . "    time,\n"
+
+        . "    agenda,\n"
+
+        . "    is_finished\n"
+
+        . "FROM\n"
+
+        . "	bookings b\n"
+
+        . "    INNER JOIN\n"
+
+        . "    users u\n"
+
+        . "    WHERE b.booked_to = '$booked_to' AND is_requested='T'\n"
+
+        . "    GROUP BY date, time ORDER BY date DESC";
+
+    $res = mysqli_query($connection, $sql);
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "
+            <tr>
+                <td>{$row['full_name']}</td>
+                <td>{$row['phone']}</td>
+                <td>{$row['booker_type']}</td>
+                <td>" . date('F j, Y', strtotime($row["date"])) . "</td>
+                <td>" . date('g:i:a', strtotime($row["time"])) . "</td>
+                <td style='text-align: justify; text-justify: inter-word;'>{$row['agenda']}</td>
+                <td><a href='requested-bookings.php?edit={$row['booking_id']}'> Edit </a></td>
+                <td><a href='requested-bookings.php?approved={$row['booking_id']}'> Approve </a></td>
+            </tr>
+            ";
+        }
+    }
+}
+
+
+function getBookingByID($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM bookings WHERE booking_id='$id'";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res);
+    }
+}
+
+function approveBookingByID($id)
+{
+    global $connection;
+    $sql = "UPDATE bookings SET is_requested='F' WHERE booking_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("i", $id);
+    $res = $query->execute() or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: counselor-bookings.php");
+    }
+}
+
+function editBookingByID($id)
+{
+    global $connection;
+    $time = $_POST["time"];
+    $sql = "UPDATE bookings SET time=? WHERE booking_id=?";
+    $query = $connection->prepare($sql);
+    $query->bind_param("si", $time, $id);
+    $res = $query->execute() or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        header("Location: requested-bookings.php");
+    }
+}
+
+
 // * SEE ALL APPOINTMENTS FROM USER VIEW
 function getAllAppointmentsFromUserView()
 {
@@ -992,7 +1089,7 @@ function addBlogPost()
         $tags = $_POST["tags"];
 
         $temp = explode(".", $_FILES["image"]["name"]);
-        $image = $author . '-' . $title . '.' . end($temp);
+        $image = $author . '-' . uniqid() . '.' . end($temp);
         $temp_image = $_FILES['image']['tmp_name'];
 
         move_uploaded_file($temp_image, "../images/blogs/$image");
@@ -1016,6 +1113,7 @@ function editBlogPost($id)
     global $connection;
     if (isset($_POST["edit"])) {
         $title = $_POST["title"];
+        $category = $_POST["category"];
         $content = $_POST["content"];
         $author = $_SESSION["id"];
         $tags = $_POST["tags"];
@@ -1027,13 +1125,14 @@ function editBlogPost($id)
         move_uploaded_file($temp_image, "../images/blogs/$image");
         $sql = "UPDATE blogs SET  
         title=?, 
+        category=?, 
         content=?, 
         image=?,
         tags=?
         WHERE id=?
     ";
         $query = $connection->prepare($sql);
-        $query->bind_param("ssssi", $title, $content, $image, $tags, $id);
+        $query->bind_param("sssssi", $title, $category, $content, $image, $tags, $id);
         $res = $query->execute() or die("Failed " . mysqli_error($connection));
 
         if ($res) {

@@ -16,7 +16,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <strong>Set Title</strong> </span>
                                 </div>
-                                <input name="title" class="form-control" placeholder="Set blog title" type="text">
+                                <input required name="title" class="form-control" placeholder="Set blog title" type="text">
                             </div>
                             <br>
                             <hr>
@@ -41,7 +41,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <strong>Content</strong> </span>
                                 </div>
-                                <textarea class="form-control" cols="40" id="body" rows="10" type="text" name="content" placeholder="Write your post content here"></textarea>
+                                <textarea required class="form-control" cols="40" id="body" rows="10" type="text" name="content" placeholder="Write your post content here"></textarea>
                             </div>
                             <br>
                             <hr>
@@ -50,7 +50,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <strong>Set Blog Tags</strong> </span>
                                 </div>
-                                <input name="tags" class="form-control" placeholder="Set blog tags (seperated by spaces)" type="text">
+                                <input required name="tags" class="form-control" placeholder="Set blog tags (seperated by spaces)" type="text">
                             </div>
                             <br>
                             <hr>
@@ -60,7 +60,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <strong>Choose Blog Image</strong> </span>
                                     </div>
-                                    <input name="image" class="form-control" placeholder="Change Photo" type="file">
+                                    <input required name="image" class="form-control" placeholder="Change Photo" type="file">
                                 </div>
                             </div>
                             <br>

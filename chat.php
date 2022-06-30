@@ -362,5 +362,3 @@ function toggleActive($id)
     </div>
 </div>
 <script src="js/chat.js"></script>
-<!-- <script src="js/chat-users.js"></script> -->
-<?php include "includes/components/footer.php" ?>

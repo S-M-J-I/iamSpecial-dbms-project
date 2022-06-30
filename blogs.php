@@ -51,7 +51,6 @@ $blogs = getBlogsByCategory($_GET["category"]);
                             <div class='card-body'>
                                 <div class='small text-muted'>" . date('F d, Y', strtotime($row["date"])) . "</div>
                                 <h2 class='card-title h4'>{$row['title']}</h2>
-                                <p class='card-text'>" . substr($row['content'], 0, 10) . "</p>
                                 <br>
                                 <br>
                                 <a class='btn btn-primary' href='post.php?blog={$row['id']}'>Read more → </a>

@@ -1,78 +1,92 @@
 <?php $title = "Home" ?>
 <?php include "includes/components/header.php" ?>
 <!-- Responsive navbar-->
-<?php include "includes/components/navbar.php" ?>
+<?php include "includes/components/navbar.php"
+?>
 <!-- Header-->
-<header class="py-5">
-    <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center" style="background: rgb(214,90,235);
-  background: linear-gradient(90deg, rgba(214,90,235,1) 9%, rgba(245,22,130,1) 100%); color: white;">
-            <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold">A warm welcome!</h1>
-                <p class="fs-4">Bootstrap utility classes are used to create this jumbotron since the old component has been removed from the framework. Why create custom CSS when you can use utilities?</p>
-                <a class="btn btn-primary btn-lg" href="#!">Call to action</a>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div style="text-align:center; background-color:#f2f3f4;" class="carousel-item active w-100">
+            <img style="object-fit: fill;" src="images/resources/4.jpg?1213123" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>Welcome to iamspecial.com</h3>
             </div>
         </div>
+        <div style="text-align:center; background-color:#f2f3f4;" class="carousel-item w-100">
+            <a href="bookings.php" style="text-decoration: none;">
+                <img style="object-fit: fill;" src="images/resources/7.png?123123" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Find the Best Counselors</h3>
+                </div>
+            </a>
+        </div>
+        <div style="text-align:center; background-color:#f2f3f4;" class="carousel-item w-100">
+            <a href="institutions.php" style="text-decoration: none;">
+                <img style="object-fit: fill;" src="images/resources/5.jpg?12321312" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Find the Best Institutions</h3>
+                </div>
+            </a>
+        </div>
     </div>
-</header>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<br>
+<br>
+<br>
 <!-- Page Content-->
 <section class="pt-4">
-    <div class="container px-lg-5">
+    <div class="container px-lg-6">
         <!-- Page Features-->
         <div class="row gx-lg-5">
             <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
+                <a style="text-decoration: none;" href="forum-lists.php">
                     <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
-                        <h2 class="fs-4 fw-bold">Fresh new layout</h2>
-                        <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p>
+                        <i style="color: #43DBAD;" class="fa-solid fa-people-group fa-10x"></i>
+                        <br>
+                        <br>
+                        <h4 style="color: black;">Find help in Our Forums</h4>
                     </div>
-                </div>
+                </a>
+
             </div>
             <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
-                        <h2 class="fs-4 fw-bold">Free to download</h2>
-                        <p class="mb-0">As always, Start Bootstrap has a powerful collectin of free templates.</p>
-                    </div>
+                <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                    <a style="text-decoration: none;" href="blog-lists.php">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <i style="color: #43DBAD;" class="fas fa-comment fa-10x"></i>
+                            <br>
+                            <br>
+                            <h4 style="color: black;">The Right Info from Our Blogs</h4>
+                        </div>
+                    </a>
                 </div>
+
             </div>
             <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
-                        <h2 class="fs-4 fw-bold">Jumbotron hero header</h2>
-                        <p class="mb-0">The heroic part of this template is the jumbotron hero header!</p>
-                    </div>
+                <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                    <a style="text-decoration: none;" href="counselor-list.php">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <i style="color: #43DBAD;" class="fa-solid fa-user-doctor fa-10x"></i>
+                            <br>
+                            <br>
+                            <h4 style="color: black;">Find the Right Counselors</h4>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-bootstrap"></i></div>
-                        <h2 class="fs-4 fw-bold">Feature boxes</h2>
-                        <p class="mb-0">We've created some custom feature boxes using Bootstrap icons!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-code"></i></div>
-                        <h2 class="fs-4 fw-bold">Simple clean code</h2>
-                        <p class="mb-0">We keep our dependencies up to date and squash bugs as they come!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-patch-check"></i></div>
-                        <h2 class="fs-4 fw-bold">A name you trust</h2>
-                        <p class="mb-0">Start Bootstrap has been the leader in free Bootstrap templates since 2013!</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

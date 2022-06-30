@@ -4,10 +4,10 @@
 <?php include "includes/components/navbar.php" ?>
 
 <!-- Page Content-->
-<section class="pt-4" style="text-align: center;">
+<section class="pt-4">
     <div class="container px-lg-5">
-        <div style="text-align: center;" class="row gx-lg-5">
-            <h1>Browse the Forum</h1>
+        <div class="row gx-lg-5">
+            <h1 style="text-align: center;">Browse the Forum</h1>
         </div>
         <br>
         <br>
@@ -15,14 +15,28 @@
         <br>
         <br>
         <!-- Page Features-->
-        <div class="row gx-lg-5">
-            <?php
-            getAllForumCategoriesAsCards()
-            ?>
-        </div>
-        <a class="btn btn-success" href="ask-forum.php">
-            <h5>Write a Post</h5>
-        </a>
+        <?php
+
+
+        if (isset($_GET["type"])) {
+            $type = $_GET["type"];
+        } else {
+            $type = "";
+        }
+
+        switch ($type) {
+            case "view-all": {
+                    include "includes/components/view-all-forums.php";
+                    break;
+                }
+            default: {
+                    include "includes/components/default-forum-page.php";
+                    break;
+                }
+        }
+
+        ?>
+
     </div>
 </section>
 <br>

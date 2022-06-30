@@ -314,6 +314,19 @@ function getBlog($id)
 }
 
 
+// * get a forum post by id
+function getForumPost($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM forums WHERE id='$id'";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return mysqli_fetch_assoc($res);
+    }
+}
+
+
 
 // * get blogs by category id
 function getBlogsByCategory($id)
@@ -339,10 +352,33 @@ function getAllCommentsByPostID($id)
     }
 }
 
+function getAllCommentsByForumPostID($id)
+{
+    global $connection;
+    $sql = "SELECT * FROM forum_comments WHERE commented_to='$id' ORDER BY id DESC";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        return $query;
+    }
+}
+
 function getPostsLikeThese($str, $id)
 {
     global $connection;
     $sql = "SELECT * FROM blogs WHERE tags LIKE '%$str%' AND id!='$id' LIMIT 6";
+    $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+        return $res;
+    }
+}
+
+
+function getForumPostsLikeThese($str, $id)
+{
+    global $connection;
+    $sql = "SELECT * FROM forums WHERE tags LIKE '%$str%' AND id!='$id' LIMIT 6";
     $res = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
 
     if ($res) {
@@ -380,7 +416,32 @@ function getAllForumCategoriesAsCards()
                 <div class='card bg-light border-0 h-100'>
                     <a style='text-decoration: none;color: black;' href='forums.php?category={$row['forum_id']}'>
                         <div class='card-body text-center p-4 p-lg-5 pt-0 pt-lg-0'>
-                            <div class='feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4'><i class='bi bi-collection'></i></div>
+                            <div style='background-color: #dd4f5d;' class='feature bg-gradient text-white rounded-3 mb-4 mt-n4'><i class='fa-solid fa-heart-circle-plus'></i></i></div>
+                            <h2 class='fs-4 fw-bold'>{$row['name']}</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            ";
+        }
+    }
+}
+
+
+function getAllSelectiveForumCategoriesAsCards()
+{
+    global $connection;
+    $sql = "SELECT * FROM forum_categories LIMIT 3";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        while ($row = mysqli_fetch_assoc($query)) {
+            echo "
+            <div class='col-lg-6 col-xxl-4 mb-5'>
+                <div class='card bg-light border-0 h-100'>
+                    <a style='text-decoration: none;color: black;' href='forums.php?category={$row['forum_id']}'>
+                        <div class='card-body text-center p-4 p-lg-5 pt-0 pt-lg-0'>
+                            <div style='background-color: #dd4f5d;' class='feature bg-gradient text-white rounded-3 mb-4 mt-n4'><i class='fa-solid fa-heart-circle-plus'></i></div>
                             <h2 class='fs-4 fw-bold'>{$row['name']}</h2>
                         </div>
                     </a>
@@ -403,6 +464,18 @@ function getForumPostsByID($id)
     }
 }
 
+function getPopularForumTopics()
+{
+    global $connection;
+    $sql = "SELECT * FROM forums ORDER BY upvotes DESC, comments DESC LIMIT 2";
+    $query = mysqli_query($connection, $sql) or die("Failed " . mysqli_error($connection));
+
+    if ($query) {
+        return $query;
+    }
+}
+
+
 
 function getForumTags($row)
 {
@@ -412,4 +485,85 @@ function getForumTags($row)
         $build .= "<a class='text-black mr-2' href='forums.php?search='$value'>#$value</a>";
     }
     return $build;
+}
+
+
+
+function bookAppointment()
+{
+    global $connection, $mail;
+    $booker = $_SESSION["id"];
+    $booked_to = $_GET["with"];
+    $booker_type = "User";
+    $date = $_POST["date"];
+    $time = $_POST["time"];
+    $agenda = $_POST["agenda"];
+
+    $sql = "INSERT INTO bookings(`booker`, `booked_to`, `booker_type`, `date`, `time`, `agenda`) VALUES(?,?,?,?,?,?)";
+    $query = $connection->prepare($sql);
+    $query->bind_param("iissss", $booker, $booked_to, $booker_type, $date, $time, $agenda);
+    $res = $query->execute() or die("Failed " . mysqli_error($connection));
+
+    if ($res) {
+
+        $user1 = getUserByID($booker);
+        $user2 = getUserByID($booked_to);
+
+        // ? send mail to booker
+        $mail->Subject = "Your appointment has been booked";
+        $mail->Body = "
+        <p>Dear {$user1['first_name']},</p>
+        <p>Your appointment with <strong>Dr. {$user2['first_name']} {$user2['last_name']}</strong> has been confirmed! Please review the following details:</p>
+        <table style='width: 577px; border:0.1px solid black;'>
+        <tbody>
+        <tr style='border:0.1px solid black;'>
+        <td style='width: 135px; text-align: center;border:0.1px solid black;'><strong>Name</strong></td>
+        <td style='width: 175px; text-align: center; border:0.1px solid black;'><strong>&nbsp;Agenda&nbsp;</strong></td>
+        <td style='width: 182.569px; text-align: center; border:0.1px solid black;'><strong>Date</strong></td>
+        <td style='width: 143.431px; text-align: center; border:0.1px solid black;'><strong>Time</strong></td>
+        <td style='width: 143.431px; text-align: center; border:0.1px solid black;'><strong>Location</strong></td>
+        </tr>
+        <tr>
+        <td style='width: 200px;border:0.1px solid black;'>{$user1['first_name']} {$user1['last_name']}</td>
+        <td style='width: 200px;border:0.1px solid black;'>$agenda</td>
+        <td style='width: 200px;border:0.1px solid black;'> " . date('F j, Y', strtotime($date)) . " </td>
+        <td style='width: 200px;border:0.1px solid black;'> " . date('g:i:a', strtotime($time)) . " </td>
+        <td style='width: 200px;border:0.1px solid black;'> {$user2['area']}, {$user2['city']}, {$user2['state']} </td>
+        </tr>
+        </tbody>
+        </table>
+        ";
+        $mail->addAddress($user1["email"]);
+        $mail->send();
+
+
+        // ? send mail to booked_to
+        $mail->Subject = "Your appointment has been booked";
+        $mail->Body = "
+        <p>Dear Dr.{$user2['first_name']},</p>
+        <p>Your appointment with <strong>{$user1['first_name']} {$user1['last_name']}</strong> has been confirmed! Please review the following details:</p>
+        <table style='width: 577px; border:0.1px solid black;'>
+        <tbody>
+        <tr style='border:0.1px solid black;'>
+        <td style='width: 135px; text-align: center;border:0.1px solid black;'><strong>Name</strong></td>
+        <td style='width: 175px; text-align: center; border:0.1px solid black;'><strong>&nbsp;Agenda&nbsp;</strong></td>
+        <td style='width: 182.569px; text-align: center; border:0.1px solid black;'><strong>Date</strong></td>
+        <td style='width: 143.431px; text-align: center; border:0.1px solid black;'><strong>Time</strong></td>
+        <td style='width: 143.431px; text-align: center; border:0.1px solid black;'><strong>Location</strong></td>
+        </tr>
+        <tr>
+        <td style='width: 200px;border:0.1px solid black;'>{$user2['first_name']} {$user2['last_name']}</td>
+        <td style='width: 200px;border:0.1px solid black;'>$agenda</td>
+        <td style='width: 200px;border:0.1px solid black;'> " . date('F j, Y', strtotime($date)) . " </td>
+        <td style='width: 200px;border:0.1px solid black;'> " . date('g:i:a', strtotime($time)) . " </td>
+        <td style='width: 200px;border:0.1px solid black;'> {$user2['area']}, {$user2['city']}, {$user2['state']} </td>
+        </tr>
+        </tbody>
+        </table>
+        ";
+        $mail->addAddress($user2["email"]);
+        $mail->send();
+
+        echo "<br><h4 style='color: green; text-align: center;'>Requested!</h4><br>";
+    }
 }

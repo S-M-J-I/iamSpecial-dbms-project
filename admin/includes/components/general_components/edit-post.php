@@ -27,6 +27,22 @@ $blog = getPostByID($_GET["id"]);
                             <br>
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
+                                    <span class="input-group-text"> <strong>Set Category</strong> </span>
+                                </div>
+                                <select name="category">
+                                    <option value="" default>Choose Category</option>
+                                    <?php
+
+                                    getAllCategoriesAsOptions()
+
+                                    ?>
+                                </select>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
                                     <span class="input-group-text"> <strong>Content</strong> </span>
                                 </div>
                                 <textarea class="form-control" cols="40" id="body" rows="10" type="text" name="content" placeholder="Write your post content here">

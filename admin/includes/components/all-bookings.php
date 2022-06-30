@@ -7,7 +7,6 @@
             <th>Date</th>
             <th>Time</th>
             <th>Agenda</th>
-            <th>Finished?</th>
         </tr>
     </thead>
     <tbody>

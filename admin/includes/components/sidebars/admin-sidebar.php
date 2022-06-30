@@ -51,12 +51,12 @@
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="posts.php">Create a Post</a>
     </nav>
-    <nav class="sb-sidenav-menu-nested nav">
+    <!-- <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="layout-sidenav-light.php">Create a Forum Discussion</a>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <a class="nav-link" href="layout-sidenav-light.php">Create a Notification</a>
-    </nav>
+    </nav> -->
 </div>
 
 
